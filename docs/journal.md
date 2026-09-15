@@ -8,3 +8,12 @@
 
 ## Project shortlist
 I chose Option 2 - Endless Runner for my project, called Forward. The main action is dodging obstacles while the player moves forward. If I do not have enough time, I will remove extra biomes and focus on the main gameplay and mission system.
+
+## Profiler
+- CPU Main Thread : 16.85ms
+- SetPass calls: 20  
+- GC allocated in frame: 51 B
+
+## Week 2 - Touch Input
+- Swipe Dp: 50
+- Tap Max: 0.3

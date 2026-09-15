@@ -1,0 +1,151 @@
+--------- beginning of system
+09-15 23:33:34.888 10197 10197 D ActivityThread: Attach thread to application
+09-15 23:33:34.901 10197 10215 I HwActivityThreadImpl: mSocketName: 5524764c-1595-4ee2-8aa5-bae97006b745
+09-15 23:33:34.902 10197 10215 I HwActivityThreadImpl: initPreloadedSocked end mPreloadStatus 2
+09-15 23:33:34.907 10197 10218 I ActivityThread: Init compatible state: true
+09-15 23:33:34.949 10197 10215 I HwActivityThreadImpl: before connect app.socketName:5524764c-1595-4ee2-8aa5-bae97006b745
+09-15 23:33:35.040 10197 10197 I HwActivityThreadImpl: accept socket mSocketName: 5524764c-1595-4ee2-8aa5-bae97006b745
+09-15 23:33:35.040 10197 10197 I HwActivityThreadImpl: accept socket end
+09-15 23:33:35.041 10197 10197 I HwActivityThreadImpl: acceptPreloadedApplication end mPreloadStatus 3
+09-15 23:33:35.041 10197 10215 I HwActivityThreadImpl: connectContinuePreload end mPreloadStatus 3
+09-15 23:33:35.059 10197 10197 I ActivityThread: finishPreloaded preloadStatus 3
+09-15 23:33:35.059 10197 10197 I ActivityThread: finishPreloaded end preloadStatus 3
+09-15 23:33:35.130 10197 10197 V ActivityThread: callActivityOnCreate
+09-15 23:33:35.219 10197 10197 D ActivityThread: add activity client record, r= ActivityRecord{5e6ec57 token=android.os.BinderProxy@e1fd069 {com.ai.forward/com.unity3d.player.UnityPlayerGameActivity}} token= android.os.BinderProxy@e1fd069
+--------- beginning of main
+09-15 23:33:35.841 10197 10241 E SwappyDisplayManager: dalvik.system.InMemoryDexClassLoader[DexPathList[[dex file "InMemoryDexFile[cookie=[0, 522834624896]]"],nativeLibraryDirectories=[/system/lib64, /hw_product/lib64, /system/product/lib64]]] couldn't find "libgame.so"
+09-15 23:33:35.842 10197 10344 I SwappyDisplayManager: Starting looper thread
+09-15 23:33:35.893 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:35.893 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:35.905 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:35.906 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:35.906 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:35.923 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:35.939 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:35.939 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:35.989 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:35.990 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:36.005 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:36.005 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:36.005 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:36.022 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:36.039 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:36.039 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:37.922 10197 10197 D GameActivity: ************** mainWorkCallback *********
+09-15 23:33:37.922 10197 10197 D gti.InputConnection: setSoftKeyboardActive, active: false
+09-15 23:33:37.923 10197 10241 D Unity   : UnloadTime: 1.153645 ms
+09-15 23:33:37.923 10197 10197 W InputMethodManager: startInputReason = 3
+09-15 23:33:37.924 10197 10197 W HwRemoteInputMethodManager: isCasting false because IHwDistributedWindowManager is invalid.
+09-15 23:33:37.926 10197 10342 W DisplayEventDispatcher: dispatcher 0x79baf4f4a0 ~ ignoring unknown event type 0x736f6674
+09-15 23:33:37.930 10197 10197 W DisplayEventDispatcher: dispatcher 0x79cc342880 ~ ignoring unknown event type 0x736f6674
+09-15 23:33:37.933 10197 10241 D Unity   : UUID: 47259fd629362e9e => ae5430a09052fadcdbab96e503fb7aed
+09-15 23:33:38.037 10197 10241 I Unity   : [Boot] HUAWEI SEA-AL10 | Android OS 10 / API-29 (HUAWEISEA-AL10/104.0.0.121C00) | Vulkan | 720x1493 @ 320 dpi
+09-15 23:33:38.037 10197 10241 I Unity   : UnityEngine.DebugLogHandler:Internal_Log(LogType, LogOption, String, Object)
+09-15 23:33:38.037 10197 10241 I Unity   : MobileBootstrap:Awake()
+09-15 23:33:38.037 10197 10241 I Unity   : 
+09-15 23:33:38.043 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:38.043 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:38.045 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:38.045 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:38.045 10197 10241 V AudioManager: getStreamVolume streamType: 3 volume: 4
+09-15 23:33:38.048 10197 10241 D Unity   : Using NDK Choreographer.
+09-15 23:33:38.050 10197 10241 V AudioManager: getStreamVolume streamType: 3 volume: 4
+09-15 23:33:38.054 10197 10241 D Unity   : Stopping Unity systrace
+09-15 23:33:38.056 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:38.072 10197 10197 I chatty  : uid=10668(com.ai.forward) identical 5 lines
+09-15 23:33:38.088 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:38.096 10197 10241 I Unity   : Shader 'Hidden/Universal Render Pipeline/GaussianDepthOfField' is not supported or has been stripped from the build (in 'GaussianDepthOfField'). PostProcessing render passes will not execute.
+09-15 23:33:38.096 10197 10241 I Unity   : UnityEngine.DebugLogHandler:Internal_Log(LogType, LogOption, String, Object)
+09-15 23:33:38.096 10197 10241 I Unity   : UnityEngine.Rendering.Universal.PostProcessUtils:LoadShader(Shader, String, LogType)
+09-15 23:33:38.096 10197 10241 I Unity   : UnityEngine.Rendering.Universal.DepthOfFieldGaussianPostProcessPass:.ctor(Shader)
+09-15 23:33:38.096 10197 10241 I Unity   : UnityEngine.Rendering.Universal.PostProcess:.ctor(PostProcessData)
+09-15 23:33:38.096 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderer:.ctor(UniversalRendererData)
+09-15 23:33:38.096 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRendererData:Create()
+09-15 23:33:38.096 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset:CreateRenderers()
+09-15 23:33:38.096 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset:CreatePipeline()
+09-15 23:33:38.096 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineAsset:InternalCreatePipeline()
+09-15 23:33:38.096 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineManager:TryPrepareRenderPipeline(RenderPipelineAsset)
+09-15 23:33:38.096 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineManager:DoRenderLoop_Internal(RenderPipelineAsset, IntPtr, Object)
+09-15 23:33:38.096 10197 10241 I Unity   : 
+09-15 23:33:38.098 10197 10241 I Unity   : Shader 'Hidden/Universal Render Pipeline/GaussianDepthOfField' is not supported or has been stripped from the build (in 'GaussianDepthOfField'). PostProcessing render passes will not execute.
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.DebugLogHandler:Internal_Log(LogType, LogOption, String, Object)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.PostProcessUtils:LoadShader(Shader, String, LogType)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.DepthOfFieldGaussianPostProcessPass:.ctor(Shader)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.PostProcess:.ctor(PostProcessData)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderer:.ctor(UniversalRendererData)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRendererData:Create()
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset:CreateRenderers()
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset:CreatePipeline()
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineAsset:InternalCreatePipeline()
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineManager:TryPrepareRenderPipeline(RenderPipelineAsset)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineManager:DoRenderLoop_Internal(RenderPipelineAsset, IntPtr, Object)
+09-15 23:33:38.098 10197 10241 I Unity   : 
+09-15 23:33:38.098 10197 10241 I Unity   : Shader 'Hidden/Universal Render Pipeline/BokehDepthOfField' is not supported or has been stripped from the build (in 'BokehDepthOfField'). PostProcessing render passes will not execute.
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.DebugLogHandler:Internal_Log(LogType, LogOption, String, Object)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.PostProcessUtils:LoadShader(Shader, String, LogType)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.DepthOfFieldBokehPostProcessPass:.ctor(Shader)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.PostProcess:.ctor(PostProcessData)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderer:.ctor(UniversalRendererData)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRendererData:Create()
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset:CreateRenderers()
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset:CreatePipeline()
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineAsset:InternalCreatePipeline()
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineManager:TryPrepareRenderPipeline(RenderPipelineAsset)
+09-15 23:33:38.098 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineManager:DoRenderLoop_Internal(RenderPipelineAsset, IntPtr, Object)
+09-15 23:33:38.098 10197 10241 I Unity   : 
+09-15 23:33:38.099 10197 10241 I Unity   : Shader 'Hidden/Universal Render Pipeline/PaniniProjection' is not supported or has been stripped from the build (in 'PaniniProjection'). PostProcessing render passes will not execute.
+09-15 23:33:38.099 10197 10241 I Unity   : UnityEngine.DebugLogHandler:Internal_Log(LogType, LogOption, String, Object)
+09-15 23:33:38.099 10197 10241 I Unity   : UnityEngine.Rendering.Universal.PostProcessUtils:LoadShader(Shader, String, LogType)
+09-15 23:33:38.099 10197 10241 I Unity   : UnityEngine.Rendering.Universal.PaniniProjectionPostProcessPass:.ctor(Shader)
+09-15 23:33:38.099 10197 10241 I Unity   : UnityEngine.Rendering.Universal.PostProcess:.ctor(PostProcessData)
+09-15 23:33:38.099 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderer:.ctor(UniversalRendererData)
+09-15 23:33:38.099 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRendererData:Create()
+09-15 23:33:38.099 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset:CreateRenderers()
+09-15 23:33:38.099 10197 10241 I Unity   : UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset:CreatePipeline()
+09-15 23:33:38.099 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineAsset:InternalCreatePipeline()
+09-15 23:33:38.099 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineManager:TryPrepareRenderPipeline(RenderPipelineAsset)
+09-15 23:33:38.099 10197 10241 I Unity   : UnityEngine.Rendering.RenderPipelineManager:DoRenderLoop_Internal(RenderPipelineAsset, IntPtr, Object)
+09-15 23:33:38.099 10197 10241 I Unity   : 
+09-15 23:33:38.130 10197 10297 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-15 23:33:38.177 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:38.178 10197 10241 I chatty  : uid=10668(com.ai.forward) Unity Main Thre identical 5 lines
+09-15 23:33:38.178 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:38.197 10197 10241 D Unity   : InitializeOrResetSwapChain 720x1493 hdr=0 samples=1
+09-15 23:33:38.218 10197 10344 I SwappyDisplayManager: Terminating looper thread
+09-15 23:33:38.239 10197 10241 W com.ai.forward: ClassLoaderContext classpath size mismatch. expected=1, found=4 (IMC[];PCL[/data/app/com.ai.forward-NgoQVshw_3dDGMB_HIZOUw==/base.apk*1432302868] | IMC[];PCL[/data/app/com.ai.forward-c6TZ01wmFnfbnLCa8EWMxA==/base.apk*1692866230:/data/app/com.ai.forward-c6TZ01wmFnfbnLCa8EWMxA==/base.apk!classes2.dex*1854243951:/data/app/com.ai.forward-c6TZ01wmFnfbnLCa8EWMxA==/base.apk!classes3.dex*862432589:/data/app/com.ai.forward-c6TZ01wmFnfbnLCa8EWMxA==/base.apk!classes4.dex*848924648])
+09-15 23:33:38.239 10197 10241 W com.ai.forward: Mismatch of class loader context in vdex (expected=IMC[];PCL[/data/app/com.ai.forward-NgoQVshw_3dDGMB_HIZOUw==/base.apk*1432302868], actual=IMC[];PCL[/data/app/com.ai.forward-c6TZ01wmFnfbnLCa8EWMxA==/base.apk*1692866230:/data/app/com.ai.forward-c6TZ01wmFnfbnLCa8EWMxA==/base.apk!classes2.dex*1854243951:/data/app/com.ai.forward-c6TZ01wmFnfbnLCa8EWMxA==/base.apk!classes3.dex*862432589:/data/app/com.ai.forward-c6TZ01wmFnfbnLCa8EWMxA==/base.apk!classes4.dex*848924648])
+09-15 23:33:38.241 10197 10241 E SwappyDisplayManager: dalvik.system.InMemoryDexClassLoader[DexPathList[[dex file "InMemoryDexFile[cookie=[0, 521210610432]]"],nativeLibraryDirectories=[/system/lib64, /hw_product/lib64, /system/product/lib64]]] couldn't find "libgame.so"
+09-15 23:33:38.241 10197 10370 I SwappyDisplayManager: Starting looper thread
+09-15 23:33:38.275 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:38.287 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:38.289 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:38.290 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:38.303 10197 10197 V GameActivity: onImeInsetsChanged from Text Listener
+09-15 23:33:38.306 10197 10241 I Unity   : Handle cmd APP_CMD_WINDOW_INSETS_CHANGED(17)
+09-15 23:33:38.377 10197 10241 W Unity   : ApplicationExitInfoProvider: ApplicationExitInfo is only available from api 30 (Android 11)
+09-15 23:33:40.044 10197 10197 I AwareBitmapCacher: init lrucache size: 2097152 pid=10197
+09-15 23:34:16.953 10197 10197 I Hwaps   : APS: EventAnalyzed: initAPS: version is 11.0.0.4
+09-15 23:34:16.955 10197 10197 D Hwaps   : Fpsrequest create,type:EXACTLY_IDENTIFY
+09-15 23:34:16.955 10197 10197 D Hwaps   : Fpsrequest create,type:EXACTLY_IDENTIFY
+09-15 23:34:16.955 10197 10197 D Hwaps   : Fpsrequest create,type:OPENGL_SETTING
+09-15 23:34:16.956 10197 10197 D Hwaps   : FpsController create
+09-15 23:34:16.962 10197 10197 D Hwaps   : APS: EventAnalyzed: reInitFpsPara :mBaseFps = 60; mMaxFps = 60
+09-15 23:34:16.965 10197 10197 W Settings: Setting device_provisioned has moved from android.provider.Settings.Secure to android.provider.Settings.Global.
+09-15 23:34:16.967 10197 10197 V HiTouch_HiTouchSensor: User setup is finished.
+09-15 23:34:16.995 10197 10197 I RtgSchedEvent: mRtgVideoEnable:false
+09-15 23:34:17.010 10197 10197 W HiTouch_PressGestureDetector: Touch pointer move a lot. The moving distance of X is:10.718872, limit is:40The moving distance of Y is:76.06415, limit is:40
+09-15 23:34:17.073 10197 10197 W HwApsManager: HwApsManagerService, registerCallback, start !
+09-15 23:34:17.074 10197 10197 D Hwaps   : APS: EventAnalyzed: registerCallbackInApsManagerService, mPkgName:com.ai.forward; result = true
+09-15 23:34:17.084 10197 10241 I Unity   : Lane Change (0.00, 1.00)
+09-15 23:34:17.084 10197 10241 I Unity   : UnityEngine.DebugLogHandler:Internal_Log(LogType, LogOption, String, Object)
+09-15 23:34:17.084 10197 10241 I Unity   : TapSwipeInput:Update()
+09-15 23:34:17.084 10197 10241 I Unity   : 
+09-15 23:34:18.679 10197 10197 W HiTouch_PressGestureDetector: Touch pointer move a lot. The moving distance of X is:72.94125, limit is:40The moving distance of Y is:1.3552246, limit is:40
+09-15 23:34:18.767 10197 10241 I Unity   : Lane Change (1.00, -0.05)
+09-15 23:34:18.767 10197 10241 I Unity   : UnityEngine.DebugLogHandler:Internal_Log(LogType, LogOption, String, Object)
+09-15 23:34:18.767 10197 10241 I Unity   : TapSwipeInput:Update()
+09-15 23:34:18.767 10197 10241 I Unity   : 
+09-15 23:34:19.678 10197 10241 I Unity   : Tap
+09-15 23:34:19.678 10197 10241 I Unity   : UnityEngine.DebugLogHandler:Internal_Log(LogType, LogOption, String, Object)
+09-15 23:34:19.678 10197 10241 I Unity   : TapSwipeInput:Update()
+09-15 23:34:19.678 10197 10241 I Unity   : 
