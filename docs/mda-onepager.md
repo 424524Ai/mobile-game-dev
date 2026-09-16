@@ -12,40 +12,40 @@ An endless runner where the player dodges obstacles and tries to survive as long
 - <...>
 
 ## Core mechanics (3 to 5 verbs or systems)
-1. <verb / system>
-2. <verb / system>
-3. <verb / system>
+1. Dodge
+2. Jump
+3. Complete missions
 
 ## Dynamics (what emerges when the mechanics meet the player)
-- <e.g. players kite enemies into traps because the arena rewards positioning>
-- <...>
+- Players must quickly decide wheather to jump or change lanes as obstacles approach
+- As the speed increases, players need faster reactions and better timing to survive
 
 ## Progression & content
-- **Session length:** <e.g. 3 to 8 minutes per run>
-- **Content in the vertical slice (by Week 6):** <e.g. 1 arena, 3 weapons, 3 upgrades>
-- **Content by CA3:** <what is added, if anything>
+- **Session length:** 2 to 5 minutes per run
+- **Content in the vertical slice (by Week 6):** 1 biome, 10+ reusable track chunks, basic obstacles, and a mission system.
+- **Content by CA3:** Additional biomes, more obstacle variations, difficulty progression, and polished UI.
 
 ## Platform features (Android)
-- **Touch model:** <e.g. one-thumb virtual stick + tap>
-- **Safe areas and orientation:** <portrait / landscape; notch handling>
-- **Haptics:** <where and why, or none>
+- **Touch model:** swipe left or right to change lanes and swipe up to jump
+- **Safe areas and orientation:** Portrait orientation with UI adjusted for notches and safe areas.
+- **Haptics:** none
 - **Lifecycle:** pause/resume and focus loss handled from Week 2
 - **Store / testing tracks:** awareness only, no uploads
 
 ## Performance budget (your device)
-- **Device:** <model, SoC, RAM, Android version>
-- **Target frame time:** <16.7 ms at 60 fps; High FPS toggle: yes/no>
-- **Memory ceiling:** <e.g. under 600 MB>
-- **Cold start:** <e.g. under 4 s to interactive>
-- **APK size:** <e.g. under 100 MB>
+- **Device:** Model: HUAWEI SEA-AL10 SoC: HiSilicon Kirin 980 Android version: Android OS 10
+- **Target frame time:** 16.7 ms at 60 fps; High FPS toggle: no
+- **Memory ceiling:** under 600 MB
+- **Cold start:** under 4 s to interactive
+- **APK size:** under 100 MB
 
 ## Monetisation (if any) & ethics notes
-- <Model you would use if you published, and what you will not do (no loot boxes, no timers that pressure spending, etc.)>
+- No monetisation planned, if published I would avoid loot boxes or pay to win mechanics that pressures player to spend money.
 
 ## Risks & cuts list (in the order they get cut)
-1. <first thing to drop if behind by Week 5>
-2. <...>
-3. <...>
+1. Additional biome variety
+2. Extra obstacle types
+3. Additional visual and audio effects
 
 ## Scope lock
 - **Locked on:** Wed 16 Sep 2026
