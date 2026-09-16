@@ -8,8 +8,8 @@ Keep this to **one page**. It is your scope contract for the semester and is sub
 An endless runner where the player dodges obstacles and tries to survive as long as possible.
 
 ## Aesthetics (what the player feels)
-- <e.g. tension and relief; mastery; cosy progression>
-- <...>
+- Tension as the game becomes faster and obstacles become harder to avoid.
+- Satisfaction from successfully dodging obstacles and completing missions.
 
 ## Core mechanics (3 to 5 verbs or systems)
 1. Dodge
@@ -17,7 +17,7 @@ An endless runner where the player dodges obstacles and tries to survive as long
 3. Complete missions
 
 ## Dynamics (what emerges when the mechanics meet the player)
-- Players must quickly decide wheather to jump or change lanes as obstacles approach
+- Players must quickly decide weather to jump or change lanes as obstacles approach
 - As the speed increases, players need faster reactions and better timing to survive
 
 ## Progression & content
