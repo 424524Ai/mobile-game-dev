@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "a092e25ba3ccacc7",
+        "id": "5efbf12e4058ea42",
         "type": "tabs",
         "children": [
           {
-            "id": "c6fe717ea4515e3f",
+            "id": "24769702bab80823",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "mda-onepager.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "mda-onepager"
+              "title": "New tab"
             }
           }
         ]
@@ -35,27 +31,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "101df23a6ee88b4e",
-            "type": "leaf",
-            "state": {
-              "type": "file-explorer",
-              "state": {
-                "sortOrder": "alphabetical",
-                "autoReveal": false,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-folder-closed",
-              "title": "Files"
-            }
-          },
-          {
             "id": "a036974594bc41b2",
             "type": "leaf",
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "\"C:\\Users\\hleab\\OneDrive - South East Technological University\\Semester7\\FYP\\MDA-One-Pager-Template.md\"path:",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -78,6 +59,21 @@
               "icon": "lucide-bookmark",
               "title": "Bookmarks"
             }
+          },
+          {
+            "id": "289a07335a5e054b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
           }
         ]
       }
@@ -99,7 +95,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mda-onepager.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +113,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mda-onepager.md",
+                "file": "journal.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mda-onepager.md",
+                "file": "journal.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -174,8 +169,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -188,9 +182,12 @@
       "bases:Create new base": false
     }
   },
-  "active": "c6fe717ea4515e3f",
+  "active": "a036974594bc41b2",
   "lastOpenFiles": [
+    "mda-onepager.md",
+    "Untitled.md",
+    "Untitled.base",
     "journal.md",
-    "mda-onepager.md"
+    "Untitled.canvas"
   ]
 }

@@ -13,6 +13,8 @@ public class TapSwipeInput : MonoBehaviour
 
     void Update()
     {
+        if (LifecycleGuard.IsPaused) return;
+
         foreach (var t in Touch.activeTouches)
         {
             if (t.phase != TouchPhase.Ended) continue;
