@@ -16,14 +16,16 @@ I chose Option 2 - Endless Runner for my project, called Forward. The main actio
 
 ## Week 2 - Touch Input
 - Swipe Dp: 50
-- Tap Max: 0.3
+- Tap Max: 0.3 seconds
 
 ## Week 2 - Test Pause Menu
-- Press Home, wait 10 s, return | Paused, panel visible, audio silent, progress saved ✓
-- Pull the notification shade down and up | Paused ✓
-- Neighbour calls you, you hang up | Paused, game resumes only on Resume ✓
--  Screen off with the power button, back on | Paused ✓
--  Force stop from Settings, relaunch | Progress restored from the save ✓
+| Test                                      | Expected                                              |
+| :---------------------------------------- | ----------------------------------------------------- |
+| Press Home, wait 10 s, return             | Paused, panel visible, audio silent, settings saved ✓ |
+| Pull the notification shade down and up   | Game paused ✓                                         |
+| Neighbour calls you, you hang up          | Paused, game resumes only on Resume ✓                 |
+| Screen off with the power button, back on | Paused ✓                                              |
+| Force stop from Settings, relaunch        | Saved PlayerPrefs settings restored correctly ✓       |
 
 Part B
 Haptics - Vibration
@@ -31,7 +33,25 @@ Added a temporary Test Vibration button to the settings panel to test the haptic
 
 Part C
 1. Applied "TextScale.cs" script to all TMP Text
-2. 3 buttons created
-3. Text size fixed
-Extra done: Created Settings panel that shows the text size options and haptics toggle, a back button created to go back to pause panel. PausePanel is disable on default, only when settings button is pressed will enable pausepanel (Modified PauseMenu.cs ln:6, 27 - 36)
+2. Created three text size options.
+3. Tested and adjusted the text sizes.
+4. Created a Settings panel with text size options and a Haptics toggle.
+5. Added a Back button to return from the Settings panel to the Pause panel.
+6. Added a Screen Shake toggle and saved its settings using PlayerPrefs.
 
+## CA1 Release Build
+Created a Release build for CA1 with the following settings:
+- Scripting Backend: IL2CPP
+- Target Achitecture: ARM64
+- Development Build: Off
+- Version: 0.1.0
+- Package name: `com.ai.forward`
+- Release signing configured using my Android keystore
+	The Release APK was successfully installed and tested on my HUAWEI SEA-AL10 using `adb install -r`.
+
+## Scope Change - Dream Setting
+After the initial scope lock, I developed a clearer theme for Forward.
+
+Forward will take place inside a changing anxiety dream. The player is being chased by an unknown presence and must keep moving forward. The dream can change between environments such as city streets, corridors and rooftops.
+
+This changes the theme and presentation of the game but does not change the main scope or core gameplay. The game is still an endless runner based on changing lanes, jumping and avoiding obstacles.

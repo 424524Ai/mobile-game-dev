@@ -108,3 +108,6 @@ InitTestScene*.unity*
 # Android signing keys
 *.keystore
 *.jks
+
+# Obsidian local workspace
+docs/.obsidian/workspace.json

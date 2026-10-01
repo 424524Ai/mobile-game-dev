@@ -3,3 +3,8 @@
 Performing Streamed Install
 Success
 
+
+30 September 2026
+G:\Apps\Unity\6000.6.0f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe install -r releases\Forward-0.1.0-release-arm64.apk
+Performing Streamed Install
+Success
