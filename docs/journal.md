@@ -49,6 +49,80 @@ Created a Release build for CA1 with the following settings:
 - Release signing configured using my Android keystore
 	The Release APK was successfully installed and tested on my HUAWEI SEA-AL10 using `adb install -r`.
 
+## 06 October 2026 - Lab 3
+### Game environment setup
+- Use Main camera as player for today
+- Main camera's Y transform is set to 1.6
+- Main camera is draged to an empty Gameobject "Runner"
+- Create "RunnerMovement.cs" to control player movement
+- Set running speed to 6f per update
+- tested script, in game view, the runner runs no problem
+- Created a cube obstacle in scene view
+- Make cube obstacle as prefab
+- Create obstacle spawner script and empty gameObj
+- Tested spwaner in play mode
+- Build dev apk to android device
+- record profiler with game running on android device
+	Selected frame: 43678
+	CPU frame time: 25.08 ms
+	PlayerLoop: 24.99 ms
+	
+- Tallest child marker
+    Gfx.WaitForPresentOnGfxThread: 22.82 ms
+	
+
+**Top three entries with their self time**
+
+| Entry                                  | Time ms | Self ms |
+| -------------------------------------- | ------: | ------: |
+| PostLateUpdate.FinishFrameRendering    | 22.81ms |  0.26ms |
+| PostLateUpdate.ProfilerEndFrame        |  0.64ms |  0.00ms |
+| PostLateUpdate.PlayerSendFrameComplete |  0.23ms | 0.00 ms |
+
+### GC
+- GC.Collect: Not observed during the capture.
+- Only very small incremental GC activity was observed.
+
+### Rendering - Frame 43678
+- SetPass Calls: 23
+- Triangles: approximately 1.87k
+- Vertices: approximately 5.44k
+- Batches: not directly reported in the Unity 6.6 Rendering details
+
+- Gfx.WaitForPresentOnGfxThread: 12.18 ms
+
+### Memory - Frame 43678
+- Total Reserved: 36.2MB
+- GC Allocated in Frame: 3 count, 51B
+- Textures: 104 count, 26.8MB
+- Meshes: 2 count, 5.0KB
+- Audio: 1.1MB
+
+### Take Sample
+**3 largest categories**
+RenderTexture: 9.9MB
+Shader: 4.1MB
+CubeMap: 3.3MB
+
+**single largest asset**
+CameraDepthAttachment_576x1194_D24_UNorm_S8_UInt_Tex2D: 3.2 MB
+
+### Probe
+|Render Scale|Main-thread ms|`Gfx.WaitForPresentOnGfxThread`|
+|---|--:|--:|
+|**0.8**|**16.19 ms**|**8.79 ms**|
+|**0.5**|**16.47 ms**|**0.00 ms**|
+Verdict: CPU-Bound
+**Candidate fix: Investigate `PostLateUpdate.FinishFrameRendering`, which was the tallest marker in the bad frame from Part B (~22.82 ms).**
+
+### Frame Debugger
+- Target: HUAWEI SEA-AL10 - Forward
+- Total render events: 26
+- Longest pass: BloomDownsample
+- Draw events in pass: 10
+
+
+
 ## Scope Change - Dream Setting
 After the initial scope lock, I developed a clearer theme for Forward.
 
