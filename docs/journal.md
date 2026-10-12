@@ -49,27 +49,26 @@ Created a Release build for CA1 with the following settings:
 - Release signing configured using my Android keystore
 	The Release APK was successfully installed and tested on my HUAWEI SEA-AL10 using `adb install -r`.
 
-## 06 October 2026 - Lab 3
+## 06 October 2026 - Lab 3 A
 ### Game environment setup
 - Use Main camera as player for today
 - Main camera's Y transform is set to 1.6
-- Main camera is draged to an empty Gameobject "Runner"
+- Main camera is dragged to an empty Gameobject "Runner"
 - Create "RunnerMovement.cs" to control player movement
 - Set running speed to 6f per update
 - tested script, in game view, the runner runs no problem
 - Created a cube obstacle in scene view
 - Make cube obstacle as prefab
 - Create obstacle spawner script and empty gameObj
-- Tested spwaner in play mode
+- Tested spawner in play mode
 - Build dev apk to android device
 - record profiler with game running on android device
 	Selected frame: 43678
 	CPU frame time: 25.08 ms
 	PlayerLoop: 24.99 ms
-	
 - Tallest child marker
-    Gfx.WaitForPresentOnGfxThread: 22.82 ms
-	
+	PostLateUpdate.FinishFrameRendering: 22.82 ms
+
 
 **Top three entries with their self time**
 
@@ -118,9 +117,82 @@ Verdict: CPU-Bound
 ### Frame Debugger
 - Target: HUAWEI SEA-AL10 - Forward
 - Total render events: 26
-- Longest pass: BloomDownsample
+- Pass with the most draw events: BloomDownsample
 - Draw events in pass: 10
 
+
+## 06 October 2026 - Lab 3 B
+
+### Test Setup
+
+- Device: HUAWEI SEA-AL10
+- Android version: 10
+- Graphics API: Vulkan
+- Refresh rate: 60 Hz
+- Target frame rate: 60 FPS
+- Optimized Frame Pacing: Enabled
+- Unity version: 6000.6.0f1
+- Release version: 0.1.1 (Version Code 3)
+- Used Android Release for frame time measurements and Android Dev for profiling.
+- The Pause Menu was used because the Main Menu has not been implemented yet.
+
+Frame Time Sampler Test Expected: flat 16 to 17 ms trace in the menu. ✓
+
+Steady Gameplay
+Average: 16.57ms
+p99: 16.53ms
+
+Pause Menu
+Average: 16.57 ms
+p99: 16.53 ms
+## 12 October 2026
+
+Worst Case
+Average: 16.55ms
+p99: 16.53ms
+
+### Performance Result
+- Target frame rate: 60 FPS (16.67 ms per frame).
+- Worst-case p99: 16.53 ms.
+- The worst-case p99 is within the 60 FPS frame budget.
+- Steady gameplay and worst-case gameplay were similar in the current prototype.
+
+### Part C
+
+| Metric                                | Result       |
+| :------------------------------------ | :----------- |
+| GC Allocated in Frame                 | 34B          |
+| PostLateUpdate.PlayerSendFrameStarted | 17 B         |
+| PreUpdate.NewInputUpdate              | 17 B         |
+| GC.Collect                            | Not observed |
+
+### Part D
+Problem: Couldn't find Total Reserved Memory in Profiler Memory Module. Asked ChatGPT for help. Solution: Added a custom module with Total Reserved Memory attribute from profiler module menu.
+
+| Metric              | Result                                    |
+| :------------------ | ----------------------------------------- |
+| Peak Total Reserved | 361.7 MB                                  |
+| SetPass Calls       | 25                                        |
+| Batches             | Not available in current profiler capture |
+| Triangles           | 1.8K                                      |
+| TOTAL PSS           | 213.6 MiB                                 |
+
+### Part E
+
+| Test   | Displayed Time (ms) |
+| :----- | :------------------ |
+| 1      | 208                 |
+| 2      | 195                 |
+| 3      | 174                 |
+| Median | 195                 |
+APK size: 30.66 MiB (32,152,329 bytes)
+
+### Throttling
+
+- Frame times were mostly around 16–17 ms during the short profiling session.
+- Some frame time spikes were observed.
+- No clear sustained performance drop was observed.
+- Thermal throttling has not been formally tested yet.
 
 
 ## Scope Change - Dream Setting
@@ -129,3 +201,4 @@ After the initial scope lock, I developed a clearer theme for Forward.
 Forward will take place inside a changing anxiety dream. The player is being chased by an unknown presence and must keep moving forward. The dream can change between environments such as city streets, corridors and rooftops.
 
 This changes the theme and presentation of the game but does not change the main scope or core gameplay. The game is still an endless runner based on changing lanes, jumping and avoiding obstacles.
+
