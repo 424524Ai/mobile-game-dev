@@ -10,7 +10,7 @@ Forward is an endless runner set inside a strange and constantly changing dream.
 
 The player is being chased by something unknown. There is no time to stop or look back. The only choice is to keep moving forward.
 
-Run through dream-like environments such as city streets, corridors and rooftops while avoiding obstacles. Swipe left or right to change lanes and swipe up to jump.
+Run through dream-like environments such as city streets, corridors and rooftops while avoiding obstacles. The player will be able to swipe left or right to turn at corners and swipe up to jump over obstacles.
 
 The dream does not always follow the rules of the real world. Paths can change unexpectedly, buildings can lead to impossible places, and falling does not always mean the end.
 

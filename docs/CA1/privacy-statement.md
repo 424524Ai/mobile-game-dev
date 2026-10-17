@@ -22,6 +22,8 @@ This information is used only to remember the player's settings. It is stored lo
 
 Game progress saving has not yet been implemented.
 
+Players can remove locally stored game settings by uninstalling the app. Uninstalling normally removes the app's local data.
+
 ## Google Play Data Safety
 If Forward were published on Google Play in its current state, the Data safety declaration would reflect that the game does not currently collect or share personal user data.
 
@@ -29,3 +31,15 @@ The declaration would be reviewed and updated before publication if future versi
 
 ## Future Changes
 Forward is still in development. Any new feature that collects, transmits, or shares user data would require this privacy statement and the Google Play Data safety declaration to be reviewed and updated.
+
+## Permissions Requested
+The current Android APK requests the following permissions:
+- **INTERNET:** Allows network access. The game currently has no intended online features or server communication.
+- **VIBRATE:** Used for haptic feedback when vibration is enabled.
+Both permissions were confirmed using ADB on the installed Release APK.
+
+## Network Activity
+Forward does not currently include any online gameplay features or network requests in its game scripts. The Android APK requests the INTERNET permission, but the game does not intentionally use it to communicate with online servers.
+
+## Third-Party SDKs
+No advertising, analytics, or third-party data collection SDKs were identified in the current Unity project.
