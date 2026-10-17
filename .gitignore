@@ -111,3 +111,7 @@ InitTestScene*.unity*
 
 # Obsidian local workspace
 docs/.obsidian/workspace.json
+
+# Ignore generated release files, but keep APKs
+releases/*
+!releases/*.apk

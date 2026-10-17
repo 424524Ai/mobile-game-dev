@@ -8,3 +8,17 @@ Success
 G:\Apps\Unity\6000.6.0f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe install -r releases\Forward-0.1.0-release-arm64.apk
 Performing Streamed Install
 Success
+
+Lab 4 - Release APK Installation Proof
+
+Device: HUAWEI SEA-AL10
+APK: releases/Forward-0.2.0-arm64.apk
+Package: com.ai.forward
+
+Installation:
+Performing Streamed Install
+Success
+
+Package Information:
+versionCode=2 minSdk=26 targetSdk=36
+versionName=0.2.0
