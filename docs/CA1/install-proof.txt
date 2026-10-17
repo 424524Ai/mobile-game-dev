@@ -1,3 +1,4 @@
+# Android APK Installation Proof
 15 September 2026 - HUAWEI SEA-AL10 - MyGame-0.1.0.apk
 
 Performing Streamed Install
@@ -22,3 +23,5 @@ Success
 Package Information:
 versionCode=2 minSdk=26 targetSdk=36
 versionName=0.2.0
+
+Screenshot taken on HUAWEI SEA-AL10, Android 10.

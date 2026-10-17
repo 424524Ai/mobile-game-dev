@@ -16,9 +16,10 @@
 ## Boot log
 [Boot] HUAWEI SEA-AL10 | Android OS 10 / API-29 (HUAWEISEA-AL10/104.0.0.121C00) | Vulkan | 720x1493 @ 320 dpi
 
-### Device Targets
+## Device Targets
 Minimum API Level: Android 8.0 (API level 26)
 Target API Level: Automatic (highest installed)
+Google Play target API requirements: https://support.google.com/googleplay/android-developer/answer/11926878
 Tested devices:
 HUAWEI SEA-AL10 — Android 10
 PHB110 — Android 16
@@ -26,6 +27,13 @@ PHB110 — Android 16
 The Release APK was successfully installed on both devices. The game ran normally on the PHB110, with no display issues or crashes observed.
 
 See docs/CA1/device-matrix.md for the test results.
+
+## Requirements
+- Unity 6000.6.0f1
+- Android Build Support (SDK, NDK and OpenJDK)
+- Android device with USB debugging enabled
+- ADB
+- Release keystore for signed builds
 
 ## Build Steps
 
@@ -55,7 +63,7 @@ See docs/CA1/device-matrix.md for the test results.
 6. In Publishing Settings, select the release keystore and alias forward.
 7. Build the APK to `releases/Forward-0.2.0-arm64.apk`.
 8. Connect an Android device with USB debugging enabled.
-9. Check the connection using `adb devices.`
+9. Check the connection using `adb devices`.
 10. Install the APK:
    `adb install -r releases/Forward-0.2.0-arm64.apk`
 11. Verify the installed version:
@@ -88,7 +96,7 @@ Used for development and testing.
 - Target Architecture: ARM64
 
 ### Android Release
-Used for the final CA1 Release APK.
+Used for signed Android Release builds.
 
 - Development Build: Disabled
 - Scripting Backend: IL2CPP

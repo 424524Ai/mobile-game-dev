@@ -19,14 +19,14 @@ The dream constantly changes around the player, moving through places such as ci
 - Satisfaction from successfully dodging obstacles and completing missions.
 
 ## Core mechanics (3 to 5 verbs or systems)
-1. Change Lanes
+1. Turn Left / Right
 2. Jump
 3. Dodge obstacles
 4. Complete missions
 
 ## Dynamics (what emerges when the mechanics meet the player)
-- Players must quickly decide whether to jump or change lanes as obstacles approach
-- As the speed increases, players need faster reactions and better timing to survive
+- Players must quickly decide when to jump or turn as obstacles approach.
+- As the speed increases, players need faster reactions and better timing to survive.
 - Changes in the dream environment can introduce different obstacle layouts while keeping the same core controls.
 
 ## Progression & content
