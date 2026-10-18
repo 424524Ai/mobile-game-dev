@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
+
 
 public class RunnerMovement : MonoBehaviour
 {
     [SerializeField] private float forwardSpeed = 6f;
-    [SerializeField] private float turnZ = 56f;     // right turning point on Z axis
-    [SerializeField] private float turnTolerance = 3f;  // accept early/late turning distance
-    [SerializeField] private float secondTurnX = 56f; // left turning point on X axis
+    private readonly List<CornerTrigger> corners = new();
     private int turnIndex = 0;  // count turning 
+
+    [SerializeField] private CornerTrigger[] initialCorners;
 
     // Update is called once per frame
     void Update()
@@ -16,35 +18,57 @@ public class RunnerMovement : MonoBehaviour
 
         transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
 
-        if (Keyboard.current != null &&
-            Keyboard.current.rightArrowKey.wasPressedThisFrame)
+        if (Keyboard.current == null) return;
+
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
         {
-            TurnRight();
+            TryTurn(CornerTrigger.TurnDirection.Right);
         }
 
         if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
         {
-            TurnLeft();
+            TryTurn(CornerTrigger.TurnDirection.Left);
         }
     }
 
-    public void TurnRight()
+    private void Awake()
     {
-        if (turnIndex != 0)
+        foreach (CornerTrigger corner in initialCorners)
         {
-            return;
+            RegisterCorner(corner);
         }
-        if (Mathf.Abs(transform.position.z - turnZ) <= turnTolerance)
+    }
+
+    private void TryTurn(CornerTrigger.TurnDirection direction)
+    {
+        if (turnIndex >= corners.Count) return;
+
+        CornerTrigger corner = corners[turnIndex];
+
+        if (corner == null || corner.Direction != direction) return;
+
+        Vector3 cornerPos = corner.transform.position;
+
+        // Distance along the runner's current forward direction.
+        float distance = Vector3.Dot(
+            cornerPos - transform.position,
+            transform.forward);
+
+        if (Mathf.Abs(distance) <= corner.TurnTolerance)
         {
-            // Align the runner with the centre of the second track
+            // Align the runner with corner centre.
             Vector3 pos = transform.position;
-            pos.z = turnZ;
+            pos.x = cornerPos.x;
+            pos.z = cornerPos.z;
             transform.position = pos;
 
-            // Turn right by 90 degrees
-            transform.Rotate(0f, 90f, 0f);
-            turnIndex = 1;
-            Debug.Log("First turn completed: Right");
+            float angle = direction == CornerTrigger.TurnDirection.Right ? 90f : -90f;
+
+            transform.Rotate(0f, angle, 0f);
+
+            turnIndex++;
+
+            Debug.Log("Turn completed: " + direction);
         }
         else
         {
@@ -52,23 +76,11 @@ public class RunnerMovement : MonoBehaviour
         }
     }
 
-    public void TurnLeft() {
-        if (turnIndex != 1)
+    public void RegisterCorner(CornerTrigger corner)
+    {
+        if (corner != null && !corners.Contains(corner))
         {
-            return;
-        }
-        if (Mathf.Abs(transform.position.x - secondTurnX) <= turnTolerance){
-            Vector3 pos = transform.position;
-            pos.x = secondTurnX;
-            transform.position = pos;
-
-            transform.Rotate(0f, -90f, 0f);
-            turnIndex = 2;
-            Debug.Log("Second turn completed: Left");
-        }
-        else
-        {
-            Debug.Log("Too early or too late to turn left");
+            corners.Add(corner);
         }
     }
 }
