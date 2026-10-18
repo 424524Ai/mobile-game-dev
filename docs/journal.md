@@ -202,3 +202,15 @@ Forward will take place inside a changing anxiety dream. The player is being cha
 
 This changes the theme and presentation of the game but does not change the main scope or core gameplay. The game is still an endless runner based on changing lanes, jumping and avoiding obstacles.
 
+
+
+## 18 October 2026
+Lab 5 A
+
+
+1. changed obstacle place from spawning left/middle/right on the track to spawning in the middle only. 
+2. Added `Floor2`to the game scene, for turning.
+3. Added turning function to game(`RunnerMovement.cs`)
+4. Set when player is able to turn, if turn too early or late, GAMEOVER.
+
+5. Implement jump action into the game.
