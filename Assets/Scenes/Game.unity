@@ -2667,6 +2667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74af7d1828c32684a934506b6f4f84c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TapSwipeInput
+  runner: {fileID: 1894119240}
   swipeDp: 50
   tapMax: 0.3
 --- !u!114 &1295699748
@@ -3782,6 +3783,9 @@ MonoBehaviour:
   initialCorners:
   - {fileID: 266951073}
   - {fileID: 1763344869}
+  runner: {fileID: 0}
+  jumpHeight: 2
+  jumpDuration: 0.8
 --- !u!82 &1894119241
 AudioSource:
   m_ObjectHideFlags: 0

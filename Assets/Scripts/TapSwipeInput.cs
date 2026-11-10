@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
@@ -5,8 +6,10 @@ using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 public class TapSwipeInput : MonoBehaviour
 {
-    public float swipeDp = 50f;     // distance in dp, not pixels
-    public float tapMax = 0.3f;     // seconds
+    [SerializeField] private RunnerMovement runner;
+
+    public float swipeDp = 50f;     // Distance in dp, not pixels
+    public float tapMax = 0.3f;     // Seconds
 
     void OnEnable() => EnhancedTouchSupport.Enable();
     void OnDisable() => EnhancedTouchSupport.Disable();
@@ -18,10 +21,56 @@ public class TapSwipeInput : MonoBehaviour
         foreach (var t in Touch.activeTouches)
         {
             if (t.phase != TouchPhase.Ended) continue;
+
             float px = swipeDp * Mathf.Max(Screen.dpi, 160f) / 160f;
             Vector2 d = t.screenPosition - t.startScreenPosition;
-            if (d.magnitude >= px) Debug.Log("Lane Change " + d.normalized);
-            else if (t.time - t.startTime < tapMax) Debug.Log("Tap");
+
+            if (d.magnitude >= px)
+            {
+                if (Mathf.Abs(d.y) > Mathf.Abs(d.x))
+                {
+                    // Vertical swipe
+                    if (d.y > 0)
+                    {
+                        Debug.Log("Swipe Up - Jump");
+
+                        if (runner != null)
+                        {
+                            runner.Jump();
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Swipe Down");
+                    }
+                }
+                else
+                {
+                    // Horizontal swipe
+                    if (d.x > 0)
+                    {
+                        Debug.Log("Swipe Right - Turn Right");
+
+                        if (runner != null)
+                        {
+                            runner.TryTurn(CornerTrigger.TurnDirection.Right);
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Swipe Left - Turn Left");
+
+                        if (runner != null)
+                        {
+                            runner.TryTurn(CornerTrigger.TurnDirection.Left);
+                        }
+                    }
+                }
+            }
+            else if (t.time - t.startTime < tapMax)
+            {
+                Debug.Log("Tap");
+            }
         }
     }
 }
