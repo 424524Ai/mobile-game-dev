@@ -1,13 +1,17 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class TrackGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject straightTrackPrefab;
     [SerializeField] private Transform lastTrack;
-    [SerializeField] private int trackCount = 5;
+    //[SerializeField] private int trackCount = 5;
     [SerializeField] private float trackLength = 60f;
     [SerializeField] private CornerTrigger cornerPrefab;
     [SerializeField] private RunnerMovement runner;
+
+    private readonly List<Transform> tracks = new();
+    public IReadOnlyList<Transform> Tracks => tracks;
 
     private enum TrackDirection
     {
@@ -18,6 +22,7 @@ public class TrackGenerator : MonoBehaviour
 
     private void Start()
     {
+        tracks.Add(lastTrack);
         // The centre of the next corner.
         Vector3 cornerPosition =
             lastTrack.position + lastTrack.forward * (trackLength / 2f);
@@ -63,6 +68,7 @@ public class TrackGenerator : MonoBehaviour
 
         runner.RegisterCorner(newCorner);
 
+        tracks.Add(newTrack.transform);
         lastTrack = newTrack.transform;
     }
 }

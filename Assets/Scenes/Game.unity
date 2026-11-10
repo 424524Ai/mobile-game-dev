@@ -889,7 +889,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrackGenerator
   straightTrackPrefab: {fileID: 7822072168806014634, guid: 160476255c0bcb340bcecdd0510d919d, type: 3}
   lastTrack: {fileID: 829329398}
-  trackCount: 5
   trackLength: 60
   cornerPrefab: {fileID: 5170771958883416048, guid: fd99a9a41b50544409e4c6831337a97f, type: 3}
   runner: {fileID: 1894119240}
@@ -1361,6 +1360,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582696477}
   m_CullTransparentMesh: 1
+--- !u!1 &588518935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 588518937}
+  - component: {fileID: 588518936}
+  m_Layer: 0
+  m_Name: ObstaclePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &588518936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588518935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294999cca88031a44bc176453218c87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstaclePool
+  obstaclePrefab: {fileID: 8500181114091328564, guid: 7cfe9d0eb3f9e2d41a4f5fee02e786db, type: 3}
+  size: 40
+--- !u!4 &588518937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588518935}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &768295796
 GameObject:
   m_ObjectHideFlags: 0
@@ -2575,7 +2620,6 @@ GameObject:
   - component: {fileID: 1295699745}
   - component: {fileID: 1295699747}
   - component: {fileID: 1295699748}
-  - component: {fileID: 1295699749}
   - component: {fileID: 1295699750}
   m_Layer: 0
   m_Name: Bootstrap
@@ -2637,18 +2681,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b5a1c0d258317a408cb2b6c6133f417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LifecycleGuard
---- !u!114 &1295699749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1295699744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b991c5f0bf87cc4487791375a06179b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DPITest
 --- !u!114 &1295699750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3622,7 +3654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1871802583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3635,8 +3667,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 767e60aa7f3450c4f896eb0a3b485699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner
-  obstaclePrefab: {fileID: 5445191043701581973, guid: 7cfe9d0eb3f9e2d41a4f5fee02e786db, type: 3}
-  obstacleCount: 5
+  obstaclePool: {fileID: 588518936}
+  obstacleCount: 40
   startZ: 15
   spacing: 8
 --- !u!4 &1871802584
@@ -3708,9 +3740,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1894119239}
   - component: {fileID: 1894119240}
+  - component: {fileID: 1894119241}
   m_Layer: 0
   m_Name: Runner
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3744,9 +3777,108 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunnerMovement
   forwardSpeed: 6
+  audioSource: {fileID: 1894119241}
+  turnSound: {fileID: 8300000, guid: 2d588c3ef40034a48a29c208111f1406, type: 3}
   initialCorners:
   - {fileID: 266951073}
   - {fileID: 1763344869}
+--- !u!82 &1894119241
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894119238}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1952341906
 GameObject:
   m_ObjectHideFlags: 0
@@ -3998,6 +4130,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1970229403}
   m_CullTransparentMesh: 1
+--- !u!1 &1980527192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1980527194}
+  - component: {fileID: 1980527193}
+  m_Layer: 0
+  m_Name: ObstacleSpawnTimer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1980527193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980527192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9d58aa6639a3f14e8abfc80ab1a2ca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawnTimer
+  obstaclePool: {fileID: 588518936}
+  spawnInterval: 2
+  runner: {fileID: 1894119239}
+  obstacleHeight: 1.5
+  trackGenerator: {fileID: 444971134}
+  spawnRange: 20
+  minSpacing: 6
+--- !u!4 &1980527194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980527192}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1993232144
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,3 +4908,5 @@ SceneRoots:
   - {fileID: 5474309897727372563}
   - {fileID: 1763344870}
   - {fileID: 444971135}
+  - {fileID: 588518937}
+  - {fileID: 1980527194}

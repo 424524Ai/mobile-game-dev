@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class RunnerMovement : MonoBehaviour
 {
     [SerializeField] private float forwardSpeed = 6f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip turnSound;
     private readonly List<CornerTrigger> corners = new();
     private int turnIndex = 0;  // count turning 
 
@@ -67,6 +69,11 @@ public class RunnerMovement : MonoBehaviour
             transform.Rotate(0f, angle, 0f);
 
             turnIndex++;
+
+            if (audioSource != null && turnSound != null)
+            {
+                audioSource.PlayOneShot(turnSound);
+            }
 
             Debug.Log("Turn completed: " + direction);
         }
