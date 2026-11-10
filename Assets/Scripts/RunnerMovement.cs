@@ -6,13 +6,19 @@ using System.Collections.Generic;
 public class RunnerMovement : MonoBehaviour
 {
     [SerializeField] private float forwardSpeed = 6f;
+    [SerializeField] private float speedIncreaseInterval = 15f;
+    [SerializeField] private float speedIncreaseAmount = 1f;
+    [SerializeField] private float maxSpeed = 12f;
+
+    private float speedTimer = 0f;
+
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip turnSound;
     private readonly List<CornerTrigger> corners = new();
     private int turnIndex = 0;  // count turning 
+    private bool isGameOver = false;
 
     [SerializeField] private CornerTrigger[] initialCorners;
-    [SerializeField] private RunnerMovement runner;
 
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float jumpDuration = 0.8f;
@@ -21,12 +27,18 @@ public class RunnerMovement : MonoBehaviour
     private float groundY;
     private bool isJumping = false;
 
+    [SerializeField] private GameManager gameManager;
+
     // Update is called once per frame
     void Update()
     {
-        if (LifecycleGuard.IsPaused) return;
+        if (LifecycleGuard.IsPaused || isGameOver) return;
+
+        UpdateSpeed();
 
         transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+
+        CheckMissedTurn();
 
         UpdateJump();
 
@@ -55,6 +67,10 @@ public class RunnerMovement : MonoBehaviour
 
     public void TryTurn(CornerTrigger.TurnDirection direction)
     {
+        if (LifecycleGuard.IsPaused || isGameOver) return;
+
+        if (turnIndex >= corners.Count) return;
+
         if (turnIndex >= corners.Count) return;
 
         CornerTrigger corner = corners[turnIndex];
@@ -105,7 +121,7 @@ public class RunnerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (LifecycleGuard.IsPaused || isJumping) return;
+        if (LifecycleGuard.IsPaused || isGameOver || isJumping) return;
 
         isJumping = true;
         jumpTimer = 0f;
@@ -131,6 +147,82 @@ public class RunnerMovement : MonoBehaviour
 
             position.y = groundY;
             transform.position = position;
+        }
+    }
+
+    private void CheckMissedTurn()
+    {
+        if (turnIndex >= corners.Count) return;
+
+        CornerTrigger corner = corners[turnIndex];
+
+        if (corner == null) return;
+
+        // Calculate distance along the runner's forward direction.
+        float distance = Vector3.Dot(
+            corner.transform.position - transform.position,
+            transform.forward
+        );
+
+        // The runner has passed the allowed turning area.
+        if (distance < -corner.TurnTolerance)
+        {
+            isGameOver = true;
+
+            Debug.Log("Game Over - Missed Turn");
+
+            if (gameManager != null)
+            {
+                gameManager.SetState(GameManager.State.Lost);
+            }
+            else
+            {
+                Debug.LogError("GameManager is not assigned!");
+            }
+
+            enabled = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isGameOver) return;
+
+        if (other.CompareTag("Obstacle"))
+        {
+            isGameOver = true;
+
+            Debug.Log("Game Over - Hit Obstacle");
+
+            if (gameManager != null)
+            {
+                gameManager.SetState(GameManager.State.Lost);
+            }
+            else
+            {
+                Debug.LogError("GameManager is not assigned!");
+            }
+
+            enabled = false;
+        }
+    }
+
+    private void UpdateSpeed()
+    {
+        if (forwardSpeed >= maxSpeed) return;
+
+        speedTimer += Time.deltaTime;
+
+        if (speedTimer >= speedIncreaseInterval)
+        {
+            speedTimer -= speedIncreaseInterval;
+
+            forwardSpeed = Mathf.Min(
+                forwardSpeed + speedIncreaseAmount,
+                maxSpeed
+            );
+
+            Debug.Log("Runner Speed: " + forwardSpeed);
         }
     }
 }
