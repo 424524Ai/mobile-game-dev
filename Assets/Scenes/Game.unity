@@ -2709,7 +2709,7 @@ GameObject:
   - component: {fileID: 1301789087}
   - component: {fileID: 1301789089}
   m_Layer: 5
-  m_Name: DistanceText
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4022,7 +4022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17495023a6f3e2a4594f88529a3cada7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunnerMovement
-  distanceText: {fileID: 1301789087}
+  scoreText: {fileID: 1301789087}
   forwardSpeed: 6
   speedIncreaseInterval: 15
   speedIncreaseAmount: 1
