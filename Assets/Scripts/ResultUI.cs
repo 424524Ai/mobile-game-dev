@@ -30,4 +30,11 @@ public class ResultUI : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("Game");
     }
+
+    // Return to the main menu.
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
+    }
 }
