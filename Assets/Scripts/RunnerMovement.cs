@@ -43,16 +43,20 @@ public class RunnerMovement : MonoBehaviour
         UpdateJump();
 
         if (Keyboard.current == null) return;
-
+        // Turn right using the right arrow key.
         if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
         {
             TryTurn(CornerTrigger.TurnDirection.Right);
         }
-
+        // Turn left using the left arrow key.
         if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
         {
             TryTurn(CornerTrigger.TurnDirection.Left);
         }
+
+        // Jump using the space key.
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            Jump();
     }
 
     private void Awake()
@@ -68,8 +72,6 @@ public class RunnerMovement : MonoBehaviour
     public void TryTurn(CornerTrigger.TurnDirection direction)
     {
         if (LifecycleGuard.IsPaused || isGameOver) return;
-
-        if (turnIndex >= corners.Count) return;
 
         if (turnIndex >= corners.Count) return;
 
