@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 430664744}
   - component: {fileID: 430664746}
   - component: {fileID: 430664745}
+  - component: {fileID: 430664747}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -258,6 +259,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430664743}
   m_CullTransparentMesh: 1
+--- !u!114 &430664747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430664743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2559a6e5284ea34e8b12ee0a34b815b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextScale
 --- !u!1 &577107938
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6eafecf5d30a841b13bc7e821684c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResultUI
+  scoreText: {fileID: 1176395281}
 --- !u!1 &866265227
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +762,7 @@ GameObject:
   - component: {fileID: 1176395280}
   - component: {fileID: 1176395282}
   - component: {fileID: 1176395281}
+  - component: {fileID: 1176395283}
   m_Layer: 5
   m_Name: ScoreText
   m_TagString: Untagged
@@ -874,6 +889,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176395279}
   m_CullTransparentMesh: 1
+--- !u!114 &1176395283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176395279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2559a6e5284ea34e8b12ee0a34b815b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextScale
 --- !u!1 &1723009106
 GameObject:
   m_ObjectHideFlags: 0

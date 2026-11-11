@@ -5,9 +5,9 @@ using TMPro;
 
 public class RunnerMovement : MonoBehaviour
 {
-    [SerializeField] private TMP_Text distanceText;
+    [SerializeField] private TMP_Text scoreText;
 
-    private float totalDistance = 0f;
+    private float totalScore = 0f;
     private Vector3 previousPosition;
 
     [SerializeField] private float forwardSpeed = 6f;
@@ -66,7 +66,7 @@ public class RunnerMovement : MonoBehaviour
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
                 Jump();
         }
-        UpdateDistance();
+        UpdateScore();
     }
 
     private void Awake()
@@ -80,7 +80,8 @@ public class RunnerMovement : MonoBehaviour
 
         previousPosition = transform.position;
 
-        UpdateDistanceText();
+        GameSession.FinalScore = 0;
+        UpdateScoreText();
     }
 
     public void TryTurn(CornerTrigger.TurnDirection direction)
@@ -264,26 +265,28 @@ public class RunnerMovement : MonoBehaviour
     }
 
     // Calculate the total horizontal distance travelled.
-    private void UpdateDistance()
+    private void UpdateScore()
     {
         Vector3 currentPosition = transform.position;
 
         Vector3 movement = currentPosition - previousPosition;
         movement.y = 0f;
 
-        totalDistance += movement.magnitude;
+        totalScore += movement.magnitude;
 
         previousPosition = currentPosition;
 
-        UpdateDistanceText();
+        GameSession.FinalScore = Mathf.FloorToInt(totalScore);
+
+        UpdateScoreText();
     }
 
     // Display the current distance on the HUD.
-    private void UpdateDistanceText()
+    private void UpdateScoreText()
     {
-        if (distanceText != null)
+        if (scoreText != null)
         {
-            distanceText.text = $"Distance: {Mathf.FloorToInt(totalDistance)} m";
+            scoreText.text = $"Score: {GameSession.FinalScore}";
         }
     }
 }
