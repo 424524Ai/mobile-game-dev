@@ -26,6 +26,13 @@ public class RunnerMovement : MonoBehaviour
     [SerializeField] private CornerTrigger[] initialCorners;
     [SerializeField] private TrackGenerator trackGenerator;
 
+    [Header("Lane Movement")]
+    [SerializeField] private float laneWidth = 2f;
+    [SerializeField] private float laneChangeSpeed = 10f;
+
+    private int currentLane = 1; // 0 = Left, 1 = Center, 2 = Right
+    private float centerX;
+
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float jumpDuration = 0.8f;
 
@@ -46,35 +53,79 @@ public class RunnerMovement : MonoBehaviour
 
         transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
 
-        CheckMissedTurn();
+        // Smoothly move towards the selected lane.
+        UpdateLaneMovement();
 
+        // Keep the existing jump mechanic.
         UpdateJump();
+
+        //CheckMissedTurn();
 
         if (Keyboard.current == null) return;
 
         if (Keyboard.current != null)
         {
-            // Turn right using the right arrow key.
-            if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
-            {
-                TryTurn(CornerTrigger.TurnDirection.Right);
-            }
-            // Turn left using the left arrow key.
             if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
             {
-                TryTurn(CornerTrigger.TurnDirection.Left);
+                ChangeLane(-1);
             }
 
-            // Jump using the space key.
+            if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
+            {
+                ChangeLane(1);
+            }
+
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
                 Jump();
+            }
+            //// Turn right using the right arrow key.
+            //if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
+            //{
+            //    TryTurn(CornerTrigger.TurnDirection.Right);
+            //}
+            //// Turn left using the left arrow key.
+            //if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
+            //{
+            //    TryTurn(CornerTrigger.TurnDirection.Left);
+            //}
+
+            //// Jump using the space key.
+            //if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            //    Jump();
         }
         UpdateScore();
+    }
+
+    public void ChangeLane(int direction)
+    {
+        if (LifecycleGuard.IsPaused || isGameOver) return;
+
+        // Keep the lane index between 0 and 2.
+        currentLane = Mathf.Clamp(currentLane + direction, 0, 2);
+    }
+
+    private void UpdateLaneMovement()
+    {
+        // Calculate the target X position.
+        float targetX = centerX + (currentLane - 1) * laneWidth;
+
+        Vector3 position = transform.position;
+
+        // Move smoothly towards the target lane.
+        position.x = Mathf.MoveTowards(
+            position.x,
+            targetX,
+            laneChangeSpeed * Time.deltaTime
+        );
+
+        transform.position = position;
     }
 
     private void Awake()
     {
         groundY = transform.position.y;
+        centerX = transform.position.x;
 
         foreach (CornerTrigger corner in initialCorners)
         {

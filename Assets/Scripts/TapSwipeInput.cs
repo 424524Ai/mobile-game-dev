@@ -49,20 +49,20 @@ public class TapSwipeInput : MonoBehaviour
                     // Horizontal swipe
                     if (d.x > 0)
                     {
-                        Debug.Log("Swipe Right - Turn Right");
+                        Debug.Log("Swipe Right - Change Lane");
 
                         if (runner != null)
                         {
-                            runner.TryTurn(CornerTrigger.TurnDirection.Right);
+                            runner.ChangeLane(1);
                         }
                     }
                     else
                     {
-                        Debug.Log("Swipe Left - Turn Left");
+                        Debug.Log("Swipe Left - Change Lane");
 
                         if (runner != null)
                         {
-                            runner.TryTurn(CornerTrigger.TurnDirection.Left);
+                            runner.ChangeLane(-1);
                         }
                     }
                 }
