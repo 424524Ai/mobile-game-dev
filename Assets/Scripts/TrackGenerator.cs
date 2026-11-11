@@ -11,6 +11,7 @@ public class TrackGenerator : MonoBehaviour
     [SerializeField] private CornerTrigger cornerPrefab;
     [SerializeField] private RunnerMovement runner;
     [SerializeField] private float generationDistance = 20f; // generate new track when the runner is this far from the last track
+    [SerializeField] private float minimumProgress = 10f;
     [SerializeField] private int maxActiveTracks = 4;
 
     private readonly List<Transform> tracks = new();
@@ -27,17 +28,24 @@ public class TrackGenerator : MonoBehaviour
         if (runner == null || lastTrack == null)
             return;
 
-        // Calculate the end position of the last generated track.
-        Vector3 trackEnd =
-            lastTrack.position + lastTrack.forward * (trackLength / 2f);
+        // Calculate the starting point of the last generated track.
+        Vector3 trackStart =
+            lastTrack.position - lastTrack.forward * (trackLength / 2f);
 
-        // Measure how far the runner has progressed along this track.
-        float remainingDistance = Vector3.Dot(
-            trackEnd - runner.transform.position,
+        // Measure the runner's progress along the last track.
+        float progress = Vector3.Dot(
+            runner.transform.position - trackStart,
             lastTrack.forward
         );
 
-        // Generate another track when the runner approaches the end.
+        // Wait until the runner has entered the last track.
+        if (progress < minimumProgress)
+            return;
+
+        // Calculate the remaining distance to the end.
+        float remainingDistance = trackLength - progress;
+
+        // Generate the next track when approaching the end.
         if (remainingDistance <= generationDistance)
         {
             GenerateNextTrack();
@@ -57,7 +65,6 @@ public class TrackGenerator : MonoBehaviour
         Quaternion newRotation =
             lastTrack.rotation * Quaternion.Euler(0f, turnAngle, 0f);
 
-        Debug.Log("Generated Turn: " + (turnRight ? "Right" : "Left"));
 
         // Calculate the turn position.
         Vector3 turnPosition =
@@ -67,6 +74,27 @@ public class TrackGenerator : MonoBehaviour
         Vector3 spawnPosition =
             turnPosition
             + (newRotation * Vector3.forward) * (trackLength / 2f);
+
+
+        // Try the opposite direction if the selected track overlaps.
+        if (IsTrackOverlapping(spawnPosition, newRotation))
+        {
+            Debug.LogWarning("Track overlap detected. Trying opposite direction.");
+
+            turnRight = !turnRight;
+            turnAngle = turnRight ? 90f : -90f;
+
+            // Recalculate rotation using the opposite direction.
+            newRotation =
+                lastTrack.rotation * Quaternion.Euler(0f, turnAngle, 0f);
+
+            // Recalculate the next track position.
+            spawnPosition =
+                turnPosition
+                + (newRotation * Vector3.forward) * (trackLength / 2f);
+        }
+
+        Debug.Log("Generated Turn: " + (turnRight ? "Right" : "Left"));
 
         // Randomly select a track prefab.
         int randomIndex = Random.Range(0, trackPrefabs.Length);
@@ -102,6 +130,31 @@ public class TrackGenerator : MonoBehaviour
         lastTrack = newTrack.transform;
 
         CleanupOldTracks();
+    }
+
+    private bool IsTrackOverlapping(Vector3 position, Quaternion rotation)
+    {
+        // Check the central area of the candidate track.
+        Vector3 halfExtents = new Vector3(
+            trackWidth / 2f - 0.2f,
+            0.5f,
+            trackLength / 2f - trackWidth
+        );
+
+        Collider[] hits = Physics.OverlapBox(
+            position,
+            halfExtents,
+            rotation
+        );
+
+        foreach (Collider hit in hits)
+        {
+            if (hit.CompareTag("Track"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void CleanupOldTracks()
