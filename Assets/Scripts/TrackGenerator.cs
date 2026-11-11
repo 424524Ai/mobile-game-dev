@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.Profiling;
 
 // Generates connected track segments and registers their corners.
 public class TrackGenerator : MonoBehaviour
@@ -18,6 +19,8 @@ public class TrackGenerator : MonoBehaviour
 
     // Reusable buffer for track overlap detection.
     private readonly Collider[] overlapResults = new Collider[32];
+    [SerializeField] private int prewarmCountPerPrefab = 4;
+    [SerializeField] private int prewarmCornerCount = 4;
 
     private readonly List<Transform> tracks = new();
     public IReadOnlyList<Transform> Tracks => tracks;
@@ -25,9 +28,13 @@ public class TrackGenerator : MonoBehaviour
 
     private void Start()
     {
-        initialTrack = lastTrack;
+        // Pre-create tracks before gameplay starts.
+        trackPool.Prewarm(trackPrefabs, prewarmCountPerPrefab);
+        cornerPool.Prewarm(prewarmCornerCount);
 
+        initialTrack = lastTrack;
         tracks.Add(lastTrack);
+
         GenerateNextTrack();
     }
 
@@ -62,77 +69,80 @@ public class TrackGenerator : MonoBehaviour
 
     private void GenerateNextTrack()
     {
-        // Calculate the end of the current track.
-        Vector3 cornerPosition =
+        using (generateTrackMarker.Auto())
+        {
+            // Calculate the end of the current track.
+            Vector3 cornerPosition =
             lastTrack.position + lastTrack.forward * (trackLength / 2f);
 
-        // Randomly choose a left or right turn.
-        bool turnRight = Random.value > 0.5f;
-        float turnAngle = turnRight ? 90f : -90f;
+            // Randomly choose a left or right turn.
+            bool turnRight = Random.value > 0.5f;
+            float turnAngle = turnRight ? 90f : -90f;
 
-        Quaternion newRotation =
-            lastTrack.rotation * Quaternion.Euler(0f, turnAngle, 0f);
-
-
-        // Calculate the turn position.
-        Vector3 turnPosition =
-            cornerPosition - lastTrack.forward * (trackWidth / 2f);
-
-        // Calculate the centre of the next track.
-        Vector3 spawnPosition =
-            turnPosition
-            + (newRotation * Vector3.forward) * (trackLength / 2f);
-
-
-        // Try the opposite direction if the selected track overlaps.
-        if (IsTrackOverlapping(spawnPosition, newRotation))
-        {
-            Debug.LogWarning("Track overlap detected. Trying opposite direction.");
-
-            turnRight = !turnRight;
-            turnAngle = turnRight ? 90f : -90f;
-
-            // Recalculate rotation using the opposite direction.
-            newRotation =
+            Quaternion newRotation =
                 lastTrack.rotation * Quaternion.Euler(0f, turnAngle, 0f);
 
-            // Recalculate the next track position.
-            spawnPosition =
+
+            // Calculate the turn position.
+            Vector3 turnPosition =
+                cornerPosition - lastTrack.forward * (trackWidth / 2f);
+
+            // Calculate the centre of the next track.
+            Vector3 spawnPosition =
                 turnPosition
                 + (newRotation * Vector3.forward) * (trackLength / 2f);
+
+
+            // Try the opposite direction if the selected track overlaps.
+            if (IsTrackOverlapping(spawnPosition, newRotation))
+            {
+                Debug.LogWarning("Track overlap detected. Trying opposite direction.");
+
+                turnRight = !turnRight;
+                turnAngle = turnRight ? 90f : -90f;
+
+                // Recalculate rotation using the opposite direction.
+                newRotation =
+                    lastTrack.rotation * Quaternion.Euler(0f, turnAngle, 0f);
+
+                // Recalculate the next track position.
+                spawnPosition =
+                    turnPosition
+                    + (newRotation * Vector3.forward) * (trackLength / 2f);
+            }
+
+            Debug.Log("Generated Turn: " + (turnRight ? "Right" : "Left"));
+
+            // Randomly select a track prefab.
+            int randomIndex = Random.Range(0, trackPrefabs.Length);
+
+            GameObject selectedPrefab = trackPrefabs[randomIndex];
+
+            // Get a track from the pool.
+            GameObject newTrack = trackPool.GetTrack(
+                selectedPrefab,
+                spawnPosition,
+                newRotation
+            );
+
+            Debug.Log("Generated Track: " + selectedPrefab.name);
+
+            // Get a corner trigger from the pool.
+            CornerTrigger newCorner = cornerPool.GetCorner(
+                turnPosition,
+                turnRight
+                    ? CornerTrigger.TurnDirection.Right
+                    : CornerTrigger.TurnDirection.Left
+            );
+
+            runner.RegisterCorner(newCorner);
+
+            // Update the track list and generation reference.
+            tracks.Add(newTrack.transform);
+            lastTrack = newTrack.transform;
+
+            CleanupOldTracks();
         }
-
-        Debug.Log("Generated Turn: " + (turnRight ? "Right" : "Left"));
-
-        // Randomly select a track prefab.
-        int randomIndex = Random.Range(0, trackPrefabs.Length);
-
-        GameObject selectedPrefab = trackPrefabs[randomIndex];
-
-        // Get a track from the pool.
-        GameObject newTrack = trackPool.GetTrack(
-            selectedPrefab,
-            spawnPosition,
-            newRotation
-        );
-
-        Debug.Log("Generated Track: " + selectedPrefab.name);
-
-        // Get a corner trigger from the pool.
-        CornerTrigger newCorner = cornerPool.GetCorner(
-            turnPosition,
-            turnRight
-                ? CornerTrigger.TurnDirection.Right
-                : CornerTrigger.TurnDirection.Left
-        );
-
-        runner.RegisterCorner(newCorner);
-
-        // Update the track list and generation reference.
-        tracks.Add(newTrack.transform);
-        lastTrack = newTrack.transform;
-
-        CleanupOldTracks();
     }
 
     private bool IsTrackOverlapping(Vector3 position, Quaternion rotation)
@@ -194,4 +204,8 @@ public class TrackGenerator : MonoBehaviour
             cornerPool.ReturnCorner(corner);
         }
     }
+
+    // Measures track generation performance.
+    private static readonly ProfilerMarker generateTrackMarker =
+        new ProfilerMarker("TrackGenerator.GenerateNextTrack");
 }

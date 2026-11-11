@@ -35,6 +35,8 @@ public class RunnerMovement : MonoBehaviour
 
     [SerializeField] private GameManager gameManager;
 
+    private int lastDisplayedScore = -1;
+
     // Update is called once per frame
     void Update()
     {
@@ -298,9 +300,15 @@ public class RunnerMovement : MonoBehaviour
     // Display the current distance on the HUD.
     private void UpdateScoreText()
     {
-        if (scoreText != null)
-        {
-            scoreText.text = $"Score: {GameSession.FinalScore}";
-        }
+        if (scoreText == null)
+            return;
+
+        int currentScore = GameSession.FinalScore;
+
+        if (currentScore == lastDisplayedScore)
+            return;
+
+        scoreText.SetText("Score: {0}", currentScore);
+        lastDisplayedScore = currentScore;
     }
 }

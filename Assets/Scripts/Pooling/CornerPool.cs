@@ -10,6 +10,20 @@ public class CornerPool : MonoBehaviour
     private readonly Queue<CornerTrigger> availableCorners = new();
     private readonly HashSet<CornerTrigger> ownedCorners = new();
 
+    // Pre-creates corner triggers for reuse.
+    public void Prewarm(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            CornerTrigger corner = Instantiate(cornerPrefab, transform);
+
+            corner.gameObject.SetActive(false);
+
+            ownedCorners.Add(corner);
+            availableCorners.Enqueue(corner);
+        }
+    }
+
     public CornerTrigger GetCorner(
         Vector3 position,
         CornerTrigger.TurnDirection direction)

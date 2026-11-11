@@ -39,3 +39,35 @@
 - GC, memory and rendering measurements were taken using the Android Dev build.
 
 
+
+## Week 5 Lab A — Object Pooling Performance
+
+### Test Environment
+- Platform: Android
+- Device: HUAWEI SEA-AL10
+- Build: Development Build
+- Profiler: Unity CPU Usage
+
+### GC Allocation Results
+
+| Method | GC Alloc |
+|---|---|
+| TrackGenerator.GenerateNextTrack | 0 B |
+| RunnerMovement.Update | 0 B |
+
+### Optimizations
+- Implemented TrackPool and CornerPool.
+- Added object pool prewarming.
+- Replaced Physics.OverlapBox with Physics.OverlapBoxNonAlloc.
+- Optimized score text updates to avoid unnecessary allocations.
+
+### Evidence
+- Profiler capture: w05-spawner.data
+
+### Frame Time Results
+
+| Metric | Result |
+|---|---|
+| Mean Frame Time | 16.59 ms |
+| P99 Frame Time  | 33.04 ms |
+

@@ -12,17 +12,6 @@ public class GameManager : MonoBehaviour
         Lost
     }
 
-    private void Update()
-    {
-        if (Keyboard.current == null)
-            return;
-
-        if (Keyboard.current.lKey.wasPressedThisFrame)
-        {
-            SetState(State.Lost);
-        }
-    }
-
     public State CurrentState {  get; private set; } = State.Playing;
     public event Action<State> StateChanged;
 
