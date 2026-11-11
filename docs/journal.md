@@ -202,3 +202,28 @@ Forward will take place inside a changing anxiety dream. The player is being cha
 
 This changes the theme and presentation of the game but does not change the main scope or core gameplay. The game is still an endless runner based on changing lanes, jumping and avoiding obstacles.
 
+
+
+## 18 October 2026
+Lab 5 A
+
+
+1. changed obstacle place from spawning left/middle/right on the track to spawning in the middle only. 
+2. Added `Floor2`to the game scene, for turning.
+3. Added turning function to game(`RunnerMovement.cs`)
+4. Set when player is able to turn, console logs if turn too early or late
+5. created track generator to randomise track generation(`TrackGenerator`)
+6. created `CornerTrigger`script to determine whether player is able to turn or not within the preset range
+7. created Boot, Menu, Game, Result scene
+8. Able to switch between game and result scene.
+9. used a temporary input scanner(L), to switch to result scene.
+10. display actual score is not done yet
+11. result scene now shows `Game over` text and `score : 0` text and a RetryButton to return to game scene.
+
+
+### Week 5 – Coroutine Review (18 October 2026)
+
+- Searched all C# scripts for `IEnumerator`, `StartCoroutine`, and `WaitForSeconds`.
+- No existing coroutines were found.
+- No coroutine conversion was required.
+- Future asynchronous code will use Unity's `Awaitable` and cancellation tokens instead of coroutines.

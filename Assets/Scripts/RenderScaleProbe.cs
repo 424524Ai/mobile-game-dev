@@ -9,18 +9,12 @@ public class RenderScaleProbe : MonoBehaviour
 {
     [Range(0.3f, 1f)] public float lowScale = 0.5f;
 
-    // reference to the probe button in the scene
-    [SerializeField] GameObject probeButton;
-
     UniversalRenderPipelineAsset _urp;
     float _full;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Only show the Probe button in a development build
-        probeButton.SetActive(Debug.isDebugBuild);
-
         _urp = GraphicsSettings.currentRenderPipeline
             as UniversalRenderPipelineAsset;
         _full = _urp.renderScale;
