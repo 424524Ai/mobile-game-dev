@@ -4,9 +4,11 @@ using UnityEngine.SceneManagement;
 // Handles navigation from the main menu.
 public class MainMenuUI : MonoBehaviour
 {
-    public void Play()
+    public async void Play()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Game");
+        await SceneLoader.Instance.Load(
+            "Game",
+            Application.exitCancellationToken
+        );
     }
 }

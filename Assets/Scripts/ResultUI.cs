@@ -25,16 +25,19 @@ public class ResultUI : MonoBehaviour
     }
 
 
-    public void Retry()
+    public async void Retry()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Game");
+        await SceneLoader.Instance.Load(
+            "Game",
+            Application.exitCancellationToken
+        );
     }
 
-    // Return to the main menu.
-    public void MainMenu()
+    public async void MainMenu()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Menu");
+        await SceneLoader.Instance.Load(
+            "Menu",
+            Application.exitCancellationToken
+        );
     }
 }
