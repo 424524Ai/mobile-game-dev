@@ -207,6 +207,9 @@ public class RunnerMovement : MonoBehaviour
         {
             isGameOver = true;
 
+            // Vibrate once when the runner misses a turn.
+            Haptics.Pulse();
+
             Debug.Log("Game Over - Missed Turn");
 
             if (gameManager != null)
@@ -229,6 +232,9 @@ public class RunnerMovement : MonoBehaviour
         if (other.CompareTag("Obstacle"))
         {
             isGameOver = true;
+
+            // Vibrate once when the runner hits an obstacle.
+            Haptics.Pulse();
 
             Debug.Log("Game Over - Hit Obstacle");
 
