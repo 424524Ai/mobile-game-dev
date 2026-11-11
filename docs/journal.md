@@ -227,3 +227,16 @@ Lab 5 A
 - No existing coroutines were found.
 - No coroutine conversion was required.
 - Future asynchronous code will use Unity's `Awaitable` and cancellation tokens instead of coroutines.
+
+### Object Pooling
+- Implemented TrackPool and CornerPool.
+- Added prewarming for reusable tracks and corner triggers.
+- Verified that pooled objects are reused during gameplay.
+
+### Performance
+- Tested on HUAWEI SEA-AL10 (Android).
+- TrackGenerator.GenerateNextTrack GC Alloc: 0 B.
+- RunnerMovement.Update GC Alloc: 0 B.
+- Mean frame time: 16.59 ms (Profile Analyzer).
+- P99 frame time: 33.04 ms (custom 600-frame sampler).
+- Mean and P99 were measured over separate sampling windows.
