@@ -100,6 +100,9 @@ public class RunnerMovement : MonoBehaviour
 
             turnIndex++;
 
+            // Remove the completed corner.
+            CleanupPassedCorners();
+
             if (audioSource != null && turnSound != null)
             {
                 audioSource.PlayOneShot(turnSound);
@@ -120,6 +123,24 @@ public class RunnerMovement : MonoBehaviour
             corners.Add(corner);
         }
     }
+
+    // Remove corners that the runner has already passed.
+    private void CleanupPassedCorners()
+    {
+        while (turnIndex > 0)
+        {
+            CornerTrigger passedCorner = corners[0];
+
+            corners.RemoveAt(0);
+            turnIndex--;
+
+            if (passedCorner != null)
+            {
+                Destroy(passedCorner.gameObject);
+            }
+        }
+    }
+
 
     public void Jump()
     {
