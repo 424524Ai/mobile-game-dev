@@ -1,10 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-
+using TMPro;
 
 public class RunnerMovement : MonoBehaviour
 {
+    [SerializeField] private TMP_Text distanceText;
+
+    private float totalDistance = 0f;
+    private Vector3 previousPosition;
+
     [SerializeField] private float forwardSpeed = 6f;
     [SerializeField] private float speedIncreaseInterval = 15f;
     [SerializeField] private float speedIncreaseAmount = 1f;
@@ -43,20 +48,25 @@ public class RunnerMovement : MonoBehaviour
         UpdateJump();
 
         if (Keyboard.current == null) return;
-        // Turn right using the right arrow key.
-        if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
-        {
-            TryTurn(CornerTrigger.TurnDirection.Right);
-        }
-        // Turn left using the left arrow key.
-        if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
-        {
-            TryTurn(CornerTrigger.TurnDirection.Left);
-        }
 
-        // Jump using the space key.
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            Jump();
+        if (Keyboard.current != null)
+        {
+            // Turn right using the right arrow key.
+            if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
+            {
+                TryTurn(CornerTrigger.TurnDirection.Right);
+            }
+            // Turn left using the left arrow key.
+            if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
+            {
+                TryTurn(CornerTrigger.TurnDirection.Left);
+            }
+
+            // Jump using the space key.
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+                Jump();
+        }
+        UpdateDistance();
     }
 
     private void Awake()
@@ -67,6 +77,10 @@ public class RunnerMovement : MonoBehaviour
         {
             RegisterCorner(corner);
         }
+
+        previousPosition = transform.position;
+
+        UpdateDistanceText();
     }
 
     public void TryTurn(CornerTrigger.TurnDirection direction)
@@ -246,6 +260,30 @@ public class RunnerMovement : MonoBehaviour
             );
 
             Debug.Log("Runner Speed: " + forwardSpeed);
+        }
+    }
+
+    // Calculate the total horizontal distance travelled.
+    private void UpdateDistance()
+    {
+        Vector3 currentPosition = transform.position;
+
+        Vector3 movement = currentPosition - previousPosition;
+        movement.y = 0f;
+
+        totalDistance += movement.magnitude;
+
+        previousPosition = currentPosition;
+
+        UpdateDistanceText();
+    }
+
+    // Display the current distance on the HUD.
+    private void UpdateDistanceText()
+    {
+        if (distanceText != null)
+        {
+            distanceText.text = $"Distance: {Mathf.FloorToInt(totalDistance)} m";
         }
     }
 }
