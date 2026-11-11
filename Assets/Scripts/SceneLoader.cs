@@ -25,14 +25,19 @@ public class SceneLoader : MonoBehaviour
             return;
 
         isLoading = true;
+        AsyncOperation operation = null;
 
         try
         {
+            ct.ThrowIfCancellationRequested();
+
+            if (progressBar != null)
+                progressBar.value = 1f;
+
             if (loadingCanvas != null)
                 loadingCanvas.SetActive(true);
 
-            AsyncOperation operation =
-                SceneManager.LoadSceneAsync(sceneName);
+            operation = SceneManager.LoadSceneAsync(sceneName);
 
             operation.allowSceneActivation = false;
 
@@ -46,10 +51,10 @@ public class SceneLoader : MonoBehaviour
                 await Awaitable.NextFrameAsync(ct);
             }
 
+            ct.ThrowIfCancellationRequested();
+
             if (progressBar != null)
                 progressBar.value = 1f;
-
-            ct.ThrowIfCancellationRequested();
 
             operation.allowSceneActivation = true;
             await operation;
@@ -57,6 +62,13 @@ public class SceneLoader : MonoBehaviour
         catch (OperationCanceledException)
         {
             Debug.Log("Scene loading cancelled.");
+
+            // Release the pending scene activation to avoid blocking Unity.
+            if (operation != null && !operation.isDone)
+            {
+                operation.allowSceneActivation = true;
+                await operation;
+            }
         }
         finally
         {

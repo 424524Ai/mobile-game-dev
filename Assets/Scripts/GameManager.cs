@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
@@ -39,7 +38,7 @@ public class GameManager : MonoBehaviour
 
         if (newState == State.Won || newState == State.Lost)
         {
-            SceneManager.LoadScene("Result");
+            LoadResultAsync();
         }
     }
 
@@ -70,5 +69,13 @@ public class GameManager : MonoBehaviour
                 SetState(State.Playing);
             }
         }
+    }
+
+    private async void LoadResultAsync()
+    {
+        await SceneLoader.Instance.Load(
+            "Result",
+            Application.exitCancellationToken
+        );
     }
 }
