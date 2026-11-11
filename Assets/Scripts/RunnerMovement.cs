@@ -24,6 +24,7 @@ public class RunnerMovement : MonoBehaviour
     private bool isGameOver = false;
 
     [SerializeField] private CornerTrigger[] initialCorners;
+    [SerializeField] private TrackGenerator trackGenerator;
 
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float jumpDuration = 0.8f;
@@ -151,7 +152,14 @@ public class RunnerMovement : MonoBehaviour
 
             if (passedCorner != null)
             {
-                Destroy(passedCorner.gameObject);
+                if (trackGenerator != null)
+                {
+                    trackGenerator.ReturnCorner(passedCorner);
+                }
+                else
+                {
+                    Destroy(passedCorner.gameObject);
+                }
             }
         }
     }

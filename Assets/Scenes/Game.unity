@@ -451,6 +451,95 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &280219268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 280219270}
+  - component: {fileID: 280219269}
+  m_Layer: 0
+  m_Name: CornerPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &280219269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280219268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce1cf5cd784356e42aa95941cb916a65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CornerPool
+  cornerPrefab: {fileID: 5170771958883416048, guid: fd99a9a41b50544409e4c6831337a97f, type: 3}
+--- !u!4 &280219270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280219268}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &281178656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 281178657}
+  - component: {fileID: 281178658}
+  m_Layer: 0
+  m_Name: TrackPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &281178657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281178656}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &281178658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281178656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0dcdba425ecf43408dd21a566b0c185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrackPool
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,6 +845,8 @@ MonoBehaviour:
   generationDistance: 20
   minimumProgress: 10
   maxActiveTracks: 4
+  trackPool: {fileID: 281178658}
+  cornerPool: {fileID: 280219269}
 --- !u!4 &444971135
 Transform:
   m_ObjectHideFlags: 0
@@ -3295,7 +3386,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RenderScaleProbe
   lowScale: 0.5
-  probeButton: {fileID: 0}
 --- !u!4 &1856423597
 Transform:
   m_ObjectHideFlags: 0
@@ -3460,6 +3550,7 @@ MonoBehaviour:
   audioSource: {fileID: 1894119241}
   turnSound: {fileID: 8300000, guid: 2d588c3ef40034a48a29c208111f1406, type: 3}
   initialCorners: []
+  trackGenerator: {fileID: 444971134}
   jumpHeight: 2
   jumpDuration: 0.8
   gameManager: {fileID: 1879966313}
@@ -4197,3 +4288,5 @@ SceneRoots:
   - {fileID: 444971135}
   - {fileID: 588518937}
   - {fileID: 1980527194}
+  - {fileID: 281178657}
+  - {fileID: 280219270}
