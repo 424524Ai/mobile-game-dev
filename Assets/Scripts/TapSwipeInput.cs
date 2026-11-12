@@ -33,15 +33,12 @@ public class TapSwipeInput : MonoBehaviour
                     if (d.y > 0)
                     {
                         Debug.Log("Swipe Up - Jump");
-
-                        if (runner != null)
-                        {
-                            runner.Jump();
-                        }
+                        if (runner != null) runner.Jump();
                     }
                     else
                     {
-                        Debug.Log("Swipe Down");
+                        Debug.Log("Swipe Down - Slide");
+                        if (runner != null) runner.Slide();
                     }
                 }
                 else

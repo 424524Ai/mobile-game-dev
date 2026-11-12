@@ -44,6 +44,18 @@ public class RunnerMovement : MonoBehaviour
 
     private int lastDisplayedScore = -1;
 
+    [Header("Slide Settings")]
+    [SerializeField] private float slideDuration = 0.8f;
+    [SerializeField] private float slideHeight = 0.9f;
+
+    [SerializeField] private CapsuleCollider capsuleCollider;
+    [SerializeField] private Animator animator;
+
+    private float slideTimer = 0f;
+    private float originalColliderHeight;
+    private Vector3 originalColliderCenter;
+    private bool isSliding = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -59,7 +71,7 @@ public class RunnerMovement : MonoBehaviour
         // Keep the existing jump mechanic.
         UpdateJump();
 
-        //CheckMissedTurn();
+        UpdateSlide();
 
         if (Keyboard.current == null) return;
 
@@ -79,20 +91,11 @@ public class RunnerMovement : MonoBehaviour
             {
                 Jump();
             }
-            //// Turn right using the right arrow key.
-            //if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
-            //{
-            //    TryTurn(CornerTrigger.TurnDirection.Right);
-            //}
-            //// Turn left using the left arrow key.
-            //if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
-            //{
-            //    TryTurn(CornerTrigger.TurnDirection.Left);
-            //}
 
-            //// Jump using the space key.
-            //if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            //    Jump();
+            if (Keyboard.current.downArrowKey.wasPressedThisFrame)
+            {
+                Slide();
+            }
         }
         UpdateScore();
     }
@@ -124,6 +127,9 @@ public class RunnerMovement : MonoBehaviour
 
     private void Awake()
     {
+        originalColliderHeight = capsuleCollider.height;
+        originalColliderCenter = capsuleCollider.center;
+
         groundY = transform.position.y;
         centerX = transform.position.x;
 
@@ -220,7 +226,7 @@ public class RunnerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (LifecycleGuard.IsPaused || isGameOver || isJumping) return;
+        if (LifecycleGuard.IsPaused || isGameOver || isJumping || isSliding) return;
 
         isJumping = true;
         jumpTimer = 0f;
@@ -361,5 +367,44 @@ public class RunnerMovement : MonoBehaviour
 
         scoreText.SetText("Score: {0}", currentScore);
         lastDisplayedScore = currentScore;
+    }
+
+    public void Slide()
+    {
+        if (LifecycleGuard.IsPaused || isGameOver || isSliding || isJumping)
+            return;
+
+        isSliding = true;
+        slideTimer = 0f;
+
+        // Reduce collider height while keeping its bottom position.
+        capsuleCollider.height = slideHeight;
+
+        Vector3 center = originalColliderCenter;
+        center.y -= (originalColliderHeight - slideHeight) / 2f;
+        capsuleCollider.center = center;
+
+        // Play the roll animation.
+        if (animator != null)
+        {
+            animator.SetTrigger("Roll");
+        }
+    }
+
+    private void UpdateSlide()
+    {
+        if (!isSliding)
+            return;
+
+        slideTimer += Time.deltaTime;
+
+        if (slideTimer >= slideDuration)
+        {
+            isSliding = false;
+
+            // Restore the original collider.
+            capsuleCollider.height = originalColliderHeight;
+            capsuleCollider.center = originalColliderCenter;
+        }
     }
 }
