@@ -14,6 +14,7 @@ public class TrackGenerator : MonoBehaviour
     [SerializeField] private float generationDistance = 20f; // generate new track when the runner is this far from the last track
     [SerializeField] private float minimumProgress = 10f;
     [SerializeField] private int maxActiveTracks = 4;
+    [SerializeField] private float aheadDistance = 100f;
     [SerializeField] private TrackPool trackPool;
     [SerializeField] private CornerPool cornerPool;
 
@@ -26,44 +27,50 @@ public class TrackGenerator : MonoBehaviour
     public IReadOnlyList<Transform> Tracks => tracks;
     private Transform initialTrack;
 
+    // Index of the next track prefab to generate.
+    private int nextTrackIndex = 1;
+
     private void Start()
     {
         // Pre-create tracks before gameplay starts.
         trackPool.Prewarm(trackPrefabs, prewarmCountPerPrefab);
-        cornerPool.Prewarm(prewarmCornerCount);
 
         initialTrack = lastTrack;
         tracks.Add(lastTrack);
 
-        GenerateNextTrack();
+        // Generate enough tracks before gameplay begins.
+        GenerateTracksAhead();
     }
 
     private void Update()
     {
+        if (LifecycleGuard.IsPaused || runner == null || lastTrack == null)
+            return;
+
+        GenerateTracksAhead();
+    }
+
+    private void GenerateTracksAhead()
+    {
         if (runner == null || lastTrack == null)
             return;
 
-        // Calculate the starting point of the last generated track.
-        Vector3 trackStart =
-            lastTrack.position - lastTrack.forward * (trackLength / 2f);
+        // Calculate the end of the last generated track.
+        Vector3 trackEnd =
+            lastTrack.position + lastTrack.forward * (trackLength / 2f);
 
-        // Measure the runner's progress along the last track.
-        float progress = Vector3.Dot(
-            runner.transform.position - trackStart,
+        // Calculate how far the generated track extends ahead of the runner.
+        float distanceAhead = Vector3.Dot(
+            trackEnd - runner.transform.position,
             lastTrack.forward
         );
 
-        // Wait until the runner has entered the last track.
-        if (progress < minimumProgress)
-            return;
-
-        // Calculate the remaining distance to the end.
-        float remainingDistance = trackLength - progress;
-
-        // Generate the next track when approaching the end.
-        if (remainingDistance <= generationDistance)
+        // Keep generating until enough track exists ahead.
+        while (distanceAhead < aheadDistance)
         {
             GenerateNextTrack();
+
+            distanceAhead += trackLength;
         }
     }
 
@@ -71,71 +78,27 @@ public class TrackGenerator : MonoBehaviour
     {
         using (generateTrackMarker.Auto())
         {
-            // Calculate the end of the current track.
-            Vector3 cornerPosition =
-            lastTrack.position + lastTrack.forward * (trackLength / 2f);
+            if (lastTrack == null || trackPrefabs.Length == 0)
+                return;
 
-            // Randomly choose a left or right turn.
-            bool turnRight = Random.value > 0.5f;
-            float turnAngle = turnRight ? 90f : -90f;
+            // Keep the same direction as the previous track.
+            Quaternion newRotation = lastTrack.rotation;
 
-            Quaternion newRotation =
-                lastTrack.rotation * Quaternion.Euler(0f, turnAngle, 0f);
-
-
-            // Calculate the turn position.
-            Vector3 turnPosition =
-                cornerPosition - lastTrack.forward * (trackWidth / 2f);
-
-            // Calculate the centre of the next track.
+            // Position the new track directly after the previous one.
             Vector3 spawnPosition =
-                turnPosition
-                + (newRotation * Vector3.forward) * (trackLength / 2f);
+                lastTrack.position +
+                lastTrack.forward * trackLength;
 
+            // Alternate between track prefabs.
+            GameObject selectedPrefab = trackPrefabs[nextTrackIndex];
+            nextTrackIndex = (nextTrackIndex + 1) % trackPrefabs.Length;
 
-            // Try the opposite direction if the selected track overlaps.
-            if (IsTrackOverlapping(spawnPosition, newRotation))
-            {
-                Debug.LogWarning("Track overlap detected. Trying opposite direction.");
-
-                turnRight = !turnRight;
-                turnAngle = turnRight ? 90f : -90f;
-
-                // Recalculate rotation using the opposite direction.
-                newRotation =
-                    lastTrack.rotation * Quaternion.Euler(0f, turnAngle, 0f);
-
-                // Recalculate the next track position.
-                spawnPosition =
-                    turnPosition
-                    + (newRotation * Vector3.forward) * (trackLength / 2f);
-            }
-
-            Debug.Log("Generated Turn: " + (turnRight ? "Right" : "Left"));
-
-            // Randomly select a track prefab.
-            int randomIndex = Random.Range(0, trackPrefabs.Length);
-
-            GameObject selectedPrefab = trackPrefabs[randomIndex];
-
-            // Get a track from the pool.
+            // Reuse a track from the pool.
             GameObject newTrack = trackPool.GetTrack(
                 selectedPrefab,
                 spawnPosition,
                 newRotation
             );
-
-            Debug.Log("Generated Track: " + selectedPrefab.name);
-
-            // Get a corner trigger from the pool.
-            CornerTrigger newCorner = cornerPool.GetCorner(
-                turnPosition,
-                turnRight
-                    ? CornerTrigger.TurnDirection.Right
-                    : CornerTrigger.TurnDirection.Left
-            );
-
-            runner.RegisterCorner(newCorner);
 
             // Update the track list and generation reference.
             tracks.Add(newTrack.transform);
