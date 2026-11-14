@@ -1,0 +1,3 @@
+newmtl student_palette
+Kd 1 1 1
+map_Kd student_palette.png

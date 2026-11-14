@@ -1,0 +1,3 @@
+newmtl exam_teacher_palette
+Kd 1 1 1
+map_Kd exam_teacher_palette.png

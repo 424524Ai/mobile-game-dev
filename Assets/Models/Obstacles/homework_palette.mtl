@@ -1,0 +1,3 @@
+newmtl homework_palette
+Kd 1 1 1
+map_Kd homework_palette.png
