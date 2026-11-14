@@ -9,10 +9,10 @@ public class RunnerMovement : MonoBehaviour
     private float totalScore = 0f;
     private Vector3 previousPosition;
 
-    [SerializeField] private float forwardSpeed = 6f;
-    [SerializeField] private float speedIncreaseInterval = 15f;
+    [SerializeField] private float forwardSpeed = 8f;
+    [SerializeField] private float speedIncreaseInterval = 10f;
     [SerializeField] private float speedIncreaseAmount = 1f;
-    [SerializeField] private float maxSpeed = 12f;
+    [SerializeField] private float maxSpeed = 16f;
 
     private float speedTimer = 0f;
 

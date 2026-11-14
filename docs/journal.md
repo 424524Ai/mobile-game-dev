@@ -240,3 +240,24 @@ Lab 5 A
 - Mean frame time: 16.59 ms (Profile Analyzer).
 - P99 frame time: 33.04 ms (custom 600-frame sampler).
 - Mean and P99 were measured over separate sampling windows.
+
+### Lab B – Part A: Greybox Lane Definition
+
+For Forward, one complete content lane consists of a single campus-themed biome with three playable lanes, four obstacle chunk types, and one difficulty ramp. The player continuously moves forward, switching lanes, jumping, and rolling to avoid obstacles.
+
+**Implemented Chunk Types:**
+
+1. **Double Obstacle:** Two obstacles appear at the same forward position in any two different lanes, leaving the third lane clear.
+2. **Staggered Obstacles:** Two obstacles appear sequentially in adjacent lanes, with a forward distance of 5 Unity units between them.
+3. **Full-Width Roll:** A banner spans all three lanes, requiring the player to roll underneath it.
+4. **Single Jump:** One jump obstacle appears in a single lane, leaving the other two lanes clear.
+
+**Difficulty Ramp:**
+
+The runner starts at 8 units per second. Speed increases by 1 unit every 10 seconds, up to a maximum of 16 units per second. The runner reaches maximum speed after 80 seconds.
+
+**Implementation and Playtesting:**
+
+All four obstacle chunk types have been implemented and tested on an Android device (HUAWEI SEA-AL10). Double Obstacle and Staggered Obstacles were tested individually before integrating all four types into the random spawning system.
+
+Following Android playtesting, the initial speed was increased from 6 to 8 units per second, the maximum speed from 12 to 16 units per second, and the acceleration interval was reduced from 15 to 10 seconds. These adjustments improved the overall gameplay pacing.
