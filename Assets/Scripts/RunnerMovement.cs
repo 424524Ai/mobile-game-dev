@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-
+using System.Threading;
 public class RunnerMovement : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
@@ -36,6 +36,7 @@ public class RunnerMovement : MonoBehaviour
     private bool isJumping = false;
 
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private HitFlash hitFlash;
 
     private int lastDisplayedScore = -1;
 
@@ -192,16 +193,8 @@ public class RunnerMovement : MonoBehaviour
 
             Debug.Log("Game Over - Hit Obstacle");
 
-            if (gameManager != null)
-            {
-                gameManager.SetState(GameManager.State.Lost);
-            }
-            else
-            {
-                Debug.LogError("GameManager is not assigned!");
-            }
-
-            enabled = false;
+            // Show the hit flash before loading the Result scene.
+            _ = ShowHitFeedbackAsync();
         }
     }
 
@@ -294,4 +287,29 @@ public class RunnerMovement : MonoBehaviour
             capsuleCollider.center = originalColliderCenter;
         }
     }
+
+
+    // Shows hit feedback before switching to the Result scene.
+    private async Awaitable ShowHitFeedbackAsync()
+    {
+        if (hitFlash != null)
+        {
+            hitFlash.ShowFlash();
+        }
+
+        await Awaitable.WaitForSecondsAsync(
+            0.2f,
+            Application.exitCancellationToken
+        );
+
+        if (gameManager != null)
+        {
+            gameManager.SetState(GameManager.State.Lost);
+        }
+        else
+        {
+            Debug.LogError("GameManager is not assigned!");
+        }
+    }
+
 }
