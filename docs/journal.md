@@ -240,3 +240,72 @@ Lab 5 A
 - Mean frame time: 16.59 ms (Profile Analyzer).
 - P99 frame time: 33.04 ms (custom 600-frame sampler).
 - Mean and P99 were measured over separate sampling windows.
+
+## Lab 5 B 
+### Part A: Greybox Lane Definition
+
+For Forward, one complete content lane consists of a single campus-themed biome with three playable lanes, four obstacle chunk types, and one difficulty ramp. The player continuously moves forward, switching lanes, jumping, and rolling to avoid obstacles.
+
+**Implemented Chunk Types:**
+
+1. **Double Obstacle:** Two obstacles appear at the same forward position in any two different lanes, leaving the third lane clear.
+2. **Staggered Obstacles:** Two obstacles appear sequentially in adjacent lanes, with a forward distance of 5 Unity units between them.
+3. **Full-Width Roll:** A banner spans all three lanes, requiring the player to roll underneath it.
+4. **Single Jump:** One jump obstacle appears in a single lane, leaving the other two lanes clear.
+
+**Difficulty Ramp:**
+
+The runner starts at 8 units per second. Speed increases by 1 unit every 10 seconds, up to a maximum of 16 units per second. The runner reaches maximum speed after 80 seconds.
+
+**Implementation and Playtesting:**
+
+All four obstacle chunk types have been implemented and tested on an Android device (HUAWEI SEA-AL10). Double Obstacle and Staggered Obstacles were tested individually before integrating all four types into the random spawning system.
+
+Following Android playtesting, the initial speed was increased from 6 to 8 units per second, the maximum speed from 12 to 16 units per second, and the acceleration interval was reduced from 15 to 10 seconds. These adjustments improved the overall gameplay pacing.
+
+### Part B and C – Async Loading Hang & Fix
+
+- Replaced `while (operation.progress < 0.9f)` with `while (!operation.isDone)` to reproduce an asynchronous loading hang.
+- Tested in the Unity Editor. The game remained on the Loading Screen because scene activation was disabled.
+- Restored the original progress condition to allow scene activation.
+- Retested in the Unity Editor and confirmed that the Menu Scene loaded successfully.
+
+
+### Part D – Performance Baseline
+
+**Device:** HUAWEI SEA-AL10 (Android 10)  
+**Target Frame Rate:** 60 FPS  
+**URP Render Scale:** 0.7
+
+| Metric | Result | Budget |
+|---|---|---|
+| Cold Start (Median of 3) | 423 ms | < 2000 ms |
+| Time to Interactive | 2.49 s | < 5 s |
+| Scene Load (Menu) | 299 ms | < 1000 ms |
+| APK Size | 32.15 MB | < 50 MB |
+
+**Cold Start Measurements:** 433 ms, 423 ms, 417 ms.
+
+**Method:**
+- Used ADB to resolve the launch Activity.
+- Measured three cold starts using `adb shell am start -W` after force-stopping the application.
+- Logged the first Menu `Update()` using `Time.realtimeSinceStartup`.
+- Measured asynchronous Menu scene loading using `System.Diagnostics.Stopwatch`.
+- Checked APK size from the `releases` directory.
+
+**Result:** All measured values were within the proposed performance budgets.
+
+### Lab B Part E – Playtest
+
+**Confusion 1 – Swipe Controls**
+
+The playtester initially struggled to understand the swipe controls. They did not know how to perform jumping and rolling actions and had to experiment with different gestures.
+
+**Confusion 2 – Obstacle Recognition**
+
+The playtester attempted to jump over the full-width overhead obstacle instead of rolling underneath it, resulting in a collision.
+
+**First Planned Improvement**
+
+Add a short introductory tutorial explaining the swipe controls and demonstrating how to avoid different obstacle types.
+

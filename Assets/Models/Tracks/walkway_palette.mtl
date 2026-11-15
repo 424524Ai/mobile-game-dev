@@ -1,0 +1,3 @@
+newmtl walkway_palette
+Kd 1 1 1
+map_Kd walkway_palette.png

@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
 using TMPro;
-
+using System.Threading;
 public class RunnerMovement : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
@@ -10,21 +9,24 @@ public class RunnerMovement : MonoBehaviour
     private float totalScore = 0f;
     private Vector3 previousPosition;
 
-    [SerializeField] private float forwardSpeed = 6f;
-    [SerializeField] private float speedIncreaseInterval = 15f;
+    [SerializeField] private float forwardSpeed = 8f;
+    [SerializeField] private float speedIncreaseInterval = 10f;
     [SerializeField] private float speedIncreaseAmount = 1f;
-    [SerializeField] private float maxSpeed = 12f;
+    [SerializeField] private float maxSpeed = 16f;
 
     private float speedTimer = 0f;
 
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip turnSound;
-    private readonly List<CornerTrigger> corners = new();
-    private int turnIndex = 0;  // count turning 
+    [SerializeField] private AudioClip jumpSound;
     private bool isGameOver = false;
 
-    [SerializeField] private CornerTrigger[] initialCorners;
-    [SerializeField] private TrackGenerator trackGenerator;
+
+    [Header("Lane Movement")]
+    [SerializeField] private float laneWidth = 2.4f;
+    [SerializeField] private float laneChangeSpeed = 10f;
+
+    private int currentLane = 1; // 0 = Left, 1 = Center, 2 = Right
+    private float centerX;
 
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float jumpDuration = 0.8f;
@@ -34,8 +36,22 @@ public class RunnerMovement : MonoBehaviour
     private bool isJumping = false;
 
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private HitFlash hitFlash;
 
     private int lastDisplayedScore = -1;
+
+    [Header("Roll Settings")]
+    [SerializeField] private float rollDuration = 0.8f;
+    [SerializeField] private float rollHeight = 0.9f;
+    private bool isRolling = false;
+    private float rollTimer = 0f;
+
+    [SerializeField] private CapsuleCollider capsuleCollider;
+    [SerializeField] private Animator animator;
+    
+    private float originalColliderHeight;
+    private Vector3 originalColliderCenter;
+    
 
     // Update is called once per frame
     void Update()
@@ -46,40 +62,74 @@ public class RunnerMovement : MonoBehaviour
 
         transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
 
-        CheckMissedTurn();
+        // Smoothly move towards the selected lane.
+        UpdateLaneMovement();
 
+        // Keep the existing jump mechanic.
         UpdateJump();
+
+        UpdateRoll();
+
+        UpdateScore();
 
         if (Keyboard.current == null) return;
 
         if (Keyboard.current != null)
         {
-            // Turn right using the right arrow key.
-            if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
-            {
-                TryTurn(CornerTrigger.TurnDirection.Right);
-            }
-            // Turn left using the left arrow key.
             if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
             {
-                TryTurn(CornerTrigger.TurnDirection.Left);
+                ChangeLane(-1);
             }
 
-            // Jump using the space key.
+            if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
+            {
+                ChangeLane(1);
+            }
+
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
                 Jump();
+            }
+
+            if (Keyboard.current.downArrowKey.wasPressedThisFrame)
+            {
+                Roll();
+            }
         }
-        UpdateScore();
+    }
+
+    public void ChangeLane(int direction)
+    {
+        if (LifecycleGuard.IsPaused || isGameOver) return;
+
+        // Keep the lane index between 0 and 2.
+        currentLane = Mathf.Clamp(currentLane + direction, 0, 2);
+    }
+
+    private void UpdateLaneMovement()
+    {
+        // Calculate the target X position.
+        float targetX = centerX + (currentLane - 1) * laneWidth;
+
+        Vector3 position = transform.position;
+
+        // Move smoothly towards the target lane.
+        position.x = Mathf.MoveTowards(
+            position.x,
+            targetX,
+            laneChangeSpeed * Time.deltaTime
+        );
+
+        transform.position = position;
     }
 
     private void Awake()
     {
-        groundY = transform.position.y;
+        originalColliderHeight = capsuleCollider.height;
+        originalColliderCenter = capsuleCollider.center;
 
-        foreach (CornerTrigger corner in initialCorners)
-        {
-            RegisterCorner(corner);
-        }
+        groundY = transform.position.y;
+        centerX = transform.position.x;
 
         previousPosition = transform.position;
 
@@ -87,92 +137,24 @@ public class RunnerMovement : MonoBehaviour
         UpdateScoreText();
     }
 
-    public void TryTurn(CornerTrigger.TurnDirection direction)
-    {
-        if (LifecycleGuard.IsPaused || isGameOver) return;
-
-        if (turnIndex >= corners.Count) return;
-
-        CornerTrigger corner = corners[turnIndex];
-
-        if (corner == null || corner.Direction != direction) return;
-
-        Vector3 cornerPos = corner.transform.position;
-
-        // Distance along the runner's current forward direction.
-        float distance = Vector3.Dot(
-            cornerPos - transform.position,
-            transform.forward);
-
-        if (Mathf.Abs(distance) <= corner.TurnTolerance)
-        {
-            // Align the runner with corner centre.
-            Vector3 pos = transform.position;
-            pos.x = cornerPos.x;
-            pos.z = cornerPos.z;
-            transform.position = pos;
-
-            float angle = direction == CornerTrigger.TurnDirection.Right ? 90f : -90f;
-
-            transform.Rotate(0f, angle, 0f);
-
-            turnIndex++;
-
-            // Remove the completed corner.
-            CleanupPassedCorners();
-
-            if (audioSource != null && turnSound != null)
-            {
-                audioSource.PlayOneShot(turnSound);
-            }
-
-            Debug.Log("Turn completed: " + direction);
-        }
-        else
-        {
-            Debug.Log("Too early or too late to turn");
-        }
-    }
-
-    public void RegisterCorner(CornerTrigger corner)
-    {
-        if (corner != null && !corners.Contains(corner))
-        {
-            corners.Add(corner);
-        }
-    }
-
-    // Remove corners that the runner has already passed.
-    private void CleanupPassedCorners()
-    {
-        while (turnIndex > 0)
-        {
-            CornerTrigger passedCorner = corners[0];
-
-            corners.RemoveAt(0);
-            turnIndex--;
-
-            if (passedCorner != null)
-            {
-                if (trackGenerator != null)
-                {
-                    trackGenerator.ReturnCorner(passedCorner);
-                }
-                else
-                {
-                    Destroy(passedCorner.gameObject);
-                }
-            }
-        }
-    }
-
-
+   
     public void Jump()
     {
-        if (LifecycleGuard.IsPaused || isGameOver || isJumping) return;
+        if (LifecycleGuard.IsPaused || isGameOver || isJumping || isRolling) return;
+
+        if (audioSource != null && jumpSound != null)
+        {
+            audioSource.PlayOneShot(jumpSound);
+        }
 
         isJumping = true;
         jumpTimer = 0f;
+
+        // Play the roll animation.
+        if (animator != null)
+        {
+            animator.SetTrigger("Jump");
+        }
     }
 
     private void UpdateJump()
@@ -198,43 +180,6 @@ public class RunnerMovement : MonoBehaviour
         }
     }
 
-    private void CheckMissedTurn()
-    {
-        if (turnIndex >= corners.Count) return;
-
-        CornerTrigger corner = corners[turnIndex];
-
-        if (corner == null) return;
-
-        // Calculate distance along the runner's forward direction.
-        float distance = Vector3.Dot(
-            corner.transform.position - transform.position,
-            transform.forward
-        );
-
-        // The runner has passed the allowed turning area.
-        if (distance < -corner.TurnTolerance)
-        {
-            isGameOver = true;
-
-            // Vibrate once when the runner misses a turn.
-            Haptics.Pulse();
-
-            Debug.Log("Game Over - Missed Turn");
-
-            if (gameManager != null)
-            {
-                gameManager.SetState(GameManager.State.Lost);
-            }
-            else
-            {
-                Debug.LogError("GameManager is not assigned!");
-            }
-
-            enabled = false;
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (isGameOver) return;
@@ -248,16 +193,8 @@ public class RunnerMovement : MonoBehaviour
 
             Debug.Log("Game Over - Hit Obstacle");
 
-            if (gameManager != null)
-            {
-                gameManager.SetState(GameManager.State.Lost);
-            }
-            else
-            {
-                Debug.LogError("GameManager is not assigned!");
-            }
-
-            enabled = false;
+            // Show the hit flash before loading the Result scene.
+            _ = ShowHitFeedbackAsync();
         }
     }
 
@@ -311,4 +248,68 @@ public class RunnerMovement : MonoBehaviour
         scoreText.SetText("Score: {0}", currentScore);
         lastDisplayedScore = currentScore;
     }
+
+    public void Roll()
+    {
+        if (LifecycleGuard.IsPaused || isGameOver || isRolling || isJumping)
+            return;
+
+        isRolling = true;
+        rollTimer = 0f;
+
+        // Reduce collider height while keeping its bottom position.
+        capsuleCollider.height = rollHeight;
+
+        Vector3 center = originalColliderCenter;
+        center.y -= (originalColliderHeight - rollHeight) / 2f;
+        capsuleCollider.center = center;
+
+        // Play the roll animation.
+        if (animator != null)
+        {
+            animator.SetTrigger("Roll");
+        }
+    }
+
+    private void UpdateRoll()
+    {
+        if (!isRolling)
+            return;
+
+        rollTimer += Time.deltaTime;
+
+        if (rollTimer >= rollDuration)
+        {
+            isRolling = false;
+
+            // Restore the original collider.
+            capsuleCollider.height = originalColliderHeight;
+            capsuleCollider.center = originalColliderCenter;
+        }
+    }
+
+
+    // Shows hit feedback before switching to the Result scene.
+    private async Awaitable ShowHitFeedbackAsync()
+    {
+        if (hitFlash != null)
+        {
+            hitFlash.ShowFlash();
+        }
+
+        await Awaitable.WaitForSecondsAsync(
+            0.2f,
+            Application.exitCancellationToken
+        );
+
+        if (gameManager != null)
+        {
+            gameManager.SetState(GameManager.State.Lost);
+        }
+        else
+        {
+            Debug.LogError("GameManager is not assigned!");
+        }
+    }
+
 }

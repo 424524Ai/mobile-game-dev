@@ -14,6 +14,9 @@ public class ObstacleSpawnTimer : MonoBehaviour
 
     [SerializeField] private float minSpacing = 6f;
 
+    // Temporary prefab reference for the legacy spawning system.
+    [SerializeField] private Obstacle testObstaclePrefab;
+
     private CancellationTokenSource cts;
 
     private void OnEnable()
@@ -106,7 +109,7 @@ public class ObstacleSpawnTimer : MonoBehaviour
                     continue;
                 }
 
-                Obstacle obstacle = obstaclePool.Spawn(spawnPosition);
+                Obstacle obstacle = obstaclePool.Spawn(testObstaclePrefab, spawnPosition);
                 obstacle.transform.rotation = selectedTrack.rotation;
                 obstacle.SetSpawnDirection(selectedTrack.forward);
 

@@ -52,7 +52,8 @@ public class TrackPool : MonoBehaviour
         }
         else
         {
-            track = Instantiate(prefab);
+            // Create an additional pooled track when none are available.
+            track = Instantiate(prefab, transform);
             prefabLookup.Add(track, prefab);
         }
 

@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
 
 // Loads scenes asynchronously and reports loading progress.
 public class SceneLoader : MonoBehaviour
@@ -26,13 +27,14 @@ public class SceneLoader : MonoBehaviour
 
         isLoading = true;
         AsyncOperation operation = null;
+        var sw = Stopwatch.StartNew();
 
         try
         {
             ct.ThrowIfCancellationRequested();
 
             if (progressBar != null)
-                progressBar.value = 1f;
+                progressBar.value = 0f;
 
             if (loadingCanvas != null)
                 loadingCanvas.SetActive(true);
@@ -58,10 +60,13 @@ public class SceneLoader : MonoBehaviour
 
             operation.allowSceneActivation = true;
             await operation;
+
+            sw.Stop();
+            UnityEngine.Debug.Log($"[perf] scene {sceneName} loaded in {sw.ElapsedMilliseconds} ms");
         }
         catch (OperationCanceledException)
         {
-            Debug.Log("Scene loading cancelled.");
+            UnityEngine.Debug.Log("Scene loading cancelled.");
 
             // Release the pending scene activation to avoid blocking Unity.
             if (operation != null && !operation.isDone)
