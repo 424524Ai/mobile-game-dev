@@ -20,6 +20,6 @@ public class CollectibleWalletReward : MonoBehaviour
             return;
         }
 
-        wallet.Earn(amount);
+        wallet.EarnFromGameplay(amount);
     }
 }
