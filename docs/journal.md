@@ -309,3 +309,33 @@ The playtester attempted to jump over the full-width overhead obstacle instead o
 
 Add a short introductory tutorial explaining the swipe controls and demonstrating how to avoid different obstacle types.
 
+### Week 6 Lab A — Economy Pacing Test
+
+**Platform:** Android  
+**Test duration:** 3 minutes (single continuous run)
+
+**Purpose:**  
+Test the soft-currency economy loop and verify that the first upgrade can be purchased within two minutes.
+
+**Results:**
+
+- Initial upgrade cost: 100 coins.
+    
+- First upgrade purchased after 43 seconds.
+    
+- Second upgrade became affordable after 1 minute 45 seconds but was not purchased.
+    
+- Remaining coins after 3 minutes: 297.
+    
+- Total upgrades purchased: 1.
+    
+- The player survived the full 3-minute test without restarting.
+    
+
+**Upgrade Effect:**  
+Each purchased upgrade increases the runner's forward movement speed by 10%. This provides a noticeable gameplay change while preserving the existing automatic speed progression.
+
+**Conclusion:**  
+The first upgrade was purchased within the required two-minute target. The current coin rewards provide sufficient progression, so no further economy balancing changes were necessary.
+
+Coin reward tuning: No changes were made during the pacing pass because the first upgrade was achieved within the target time.

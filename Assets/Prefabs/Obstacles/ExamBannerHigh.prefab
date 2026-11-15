@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6244106844498394899}
   - component: {fileID: 8592883645078786493}
   - component: {fileID: 8162092910287431344}
+  - component: {fileID: 5428931387710901312}
   m_Layer: 0
   m_Name: ExamBannerHigh
   m_TagString: Obstacle
@@ -126,3 +127,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Obstacle
   despawnDistance: 10
+--- !u!114 &5428931387710901312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618050565110261294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92643021037afe44d94ff60c9a491885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExamBannerMarker

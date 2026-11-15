@@ -12,17 +12,25 @@ The game does not currently use:
 - Third-party data collection SDKs
 
 ## Local Data
-Forward currently uses Unity PlayerPrefs to save some game settings locally on the player's device.
 
-Examples include:
+Forward uses Unity PlayerPrefs to store game settings and economy progress locally on the player's device.
+
+The locally stored data includes:
+
 - Haptics preference
+    
 - Screen shake preference
+    
+- `wallet.coins` — The player's current coin balance
+    
+- `wallet.level` — The player's purchased upgrade level
+    
 
-This information is used only to remember the player's settings. It is stored locally on the device and is not transmitted to a server or shared with third parties.
+This information is used to remember player settings and preserve economy progress between game sessions. It is stored locally on the device and is not transmitted to a server or shared with third parties.
 
-Game progress saving has not yet been implemented.
+The game includes a simulated in-app purchase feature for educational purposes. No real payments are processed, and no payment information is collected.
 
-Players can remove locally stored game settings by uninstalling the app. Uninstalling normally removes the app's local data.
+Players can remove locally stored settings and economy progress by uninstalling the app. Uninstalling normally removes the app's local data.
 
 ## Google Play Data Safety
 If Forward were published on Google Play in its current state, the Data safety declaration would reflect that the game does not currently collect or share personal user data.
