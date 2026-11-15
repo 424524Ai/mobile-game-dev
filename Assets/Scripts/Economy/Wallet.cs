@@ -5,7 +5,7 @@ public class Wallet : MonoBehaviour
     public int Coins { get; private set; }
     public int Level { get; private set; }
     public event System.Action Changed;
-    public int NextCost => (int)(10 * Mathf.Pow(1.5f, Level));
+    public int NextCost => (int)(100 * Mathf.Pow(1.5f, Level));
 
     public void Earn(int n) 
     { 

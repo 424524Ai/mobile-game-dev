@@ -922,6 +922,7 @@ GameObject:
   - component: {fileID: 1087543495}
   - component: {fileID: 1087543497}
   - component: {fileID: 1087543498}
+  - component: {fileID: 1087543499}
   m_Layer: 0
   m_Name: App
   m_TagString: Untagged
@@ -983,6 +984,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c1291a35d221247a2dec58d29ab29f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wallet
+--- !u!114 &1087543499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087543494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b36e78f6d4b08428687e151a47bddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalletPersistence
 --- !u!1 &1236198426
 GameObject:
   m_ObjectHideFlags: 0
