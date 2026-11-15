@@ -5,6 +5,7 @@ public class ObstacleSpawner : MonoBehaviour
     [Header("References")]
     [SerializeField] private ObstaclePool obstaclePool;
     [SerializeField] private Transform runner;
+    [SerializeField] private CollectibleSpawner collectibleSpawner;
 
     [Header("Obstacle Prefabs")]
     [SerializeField] private Obstacle homeworkPrefab;
@@ -19,6 +20,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     // World Z position of the next obstacle to spawn.
     private float nextSpawnZ;
+    private float firstObstacleZ;
     void Start()
     {
         if (runner == null || obstaclePool == null)
@@ -30,7 +32,7 @@ public class ObstacleSpawner : MonoBehaviour
 
         // Start spawning ahead of the runner's initial position.
         nextSpawnZ = runner.position.z + startDistance;
-
+        firstObstacleZ = nextSpawnZ;
         SpawnObstaclesAhead();
     }
 
@@ -69,6 +71,20 @@ public class ObstacleSpawner : MonoBehaviour
                     );
                     break;
             }
+
+            // Both surrounding obstacle groups now exist.
+            // Fill the gap behind the newly spawned group.
+            if (collectibleSpawner != null && nextSpawnZ > firstObstacleZ)
+            {
+                int collectibleLane = Random.Range(0, 3);
+                float collectibleStartZ = nextSpawnZ - spawnSpacing + 7f;
+
+                collectibleSpawner.SpawnGroup(
+                    collectibleLane,
+                    collectibleStartZ
+                );
+            }
+
             nextSpawnZ += spawnSpacing;
         }
     }
