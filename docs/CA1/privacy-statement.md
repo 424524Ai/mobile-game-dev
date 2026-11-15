@@ -32,6 +32,14 @@ The game includes a simulated in-app purchase feature for educational purposes. 
 
 Players can remove locally stored settings and economy progress by uninstalling the app. Uninstalling normally removes the app's local data.
 
+### Local Telemetry
+
+Forward records gameplay telemetry locally for testing and economy balancing. Events include session starts, gameplay attempts, game results and upgrade purchases.
+
+Telemetry is written to Unity's Debug Log and stored in a `telemetry.log` file within the application's persistent data directory (`Application.persistentDataPath`).
+
+No third-party analytics SDK is used, and telemetry data is not automatically transmitted to external servers. The log file persists between app launches and may grow as additional events are recorded.
+
 ## Google Play Data Safety
 If Forward were published on Google Play in its current state, the Data safety declaration would reflect that the game does not currently collect or share personal user data.
 

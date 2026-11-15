@@ -339,3 +339,39 @@ Each purchased upgrade increases the runner's forward movement speed by 10%. Thi
 The first upgrade was purchased within the required two-minute target. The current coin rewards provide sufficient progression, so no further economy balancing changes were necessary.
 
 Coin reward tuning: No changes were made during the pacing pass because the first upgrade was achieved within the target time.
+
+### Week 6 Lab B — Telemetry and Save/Resume Testing
+
+**Platform:** Unity Editor and Android (HUAWEI SEA-AL10)
+
+**Purpose:** Implement local gameplay telemetry for economy balancing and verify wallet persistence across Android application lifecycle events.
+
+**Implementation:**
+
+- Created `Telemetry.cs` to write events to Unity Logcat and a persistent `telemetry.log` file.
+    
+- Implemented five events: `session_start`, `level_start`, `level_complete`, `level_fail`, and `upgrade_purchased`.
+    
+- Added gameplay coin tracking to distinguish collectible rewards from Fake IAP purchases and upgrade spending.
+    
+- Created `docs/CA2/Economy_Telemetry_Map.md`.
+    
+- Updated the privacy statement to describe local telemetry storage.
+    
+
+**Android Testing:**
+
+|Test|Result|
+|---|---|
+|Home → Resume|PASS — wallet coins unchanged|
+|Force-stop → Relaunch|PASS — wallet coins restored|
+|Background → `am kill` → Relaunch|Coins unchanged; process termination not independently verified|
+|Telemetry file export|PASS — `telemetry.log` successfully exported|
+|Multiple sessions recorded|PASS — different session IDs found|
+|Upgrade purchase logging|PASS — speed upgrades recorded with level, cost and remaining coins|
+
+**Evidence:** `docs/CA2/telemetry/telemetry.log`
+
+**Async Pack 1:** Monetisation Models and Ethics. Original due date: Sunday, 1 November 2026, 23:59.
+
+**Conclusion:** Local telemetry successfully records gameplay and economy events. Wallet data remained consistent across all tested Android lifecycle scenarios. The game currently has no victory condition, so `level_complete` is implemented but not triggered during normal gameplay.
