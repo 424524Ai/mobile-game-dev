@@ -375,3 +375,39 @@ Coin reward tuning: No changes were made during the pacing pass because the firs
 **Async Pack 1:** Monetisation Models and Ethics. Original due date: Sunday, 1 November 2026, 23:59.
 
 **Conclusion:** Local telemetry successfully records gameplay and economy events. Wallet data remained consistent across all tested Android lifecycle scenarios. The game currently has no victory condition, so `level_complete` is implemented but not triggered during normal gameplay.
+
+### Week 7 Lab B – Thermal Soak Testing 
+
+**Purpose:** Evaluate sustained performance during a 10-minute gameplay session on an Android device.
+
+**Implementation and Testing:**
+
+- Added a `ThermalOverlay` to display smoothed frame time and Adaptive Performance thermal status.
+    
+- Built and tested the game on a Huawei SEA-AL10 device in Balanced mode.
+    
+- Recorded battery temperature before and after the 10-minute test using ADB.
+    
+- Captured overlay screenshots at minutes 0, 5, and 10.
+    
+- Collected Unity Logcat output and measured frame times before and after the test.
+    
+
+**Results:**
+
+- Battery temperature: 35.0°C → 35.0°C (Δ 0.0°C).
+    
+- Average frame time: 16.64 ms → 16.58 ms.
+    
+- P99 frame time: 16.92 ms → 16.53 ms.
+    
+- Adaptive Performance Provider remained inactive.
+    
+- No thermal throttling events were found in the captured Logcat output.
+    
+- No significant sustained performance degradation was observed.
+    
+
+**Evidence:** `docs/CA2/baseline/thermal-soak/` and `docs/CA2/baseline/Performance_Baseline.md`.
+
+**Conclusion:** Frame times remained stable throughout the test. Thermal throttling could not be directly verified because the Adaptive Performance Provider was inactive on the test device.

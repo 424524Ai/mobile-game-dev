@@ -71,3 +71,15 @@
 | Mean Frame Time | 16.59 ms |
 | P99 Frame Time  | 33.04 ms |
 
+### Thermals
+| Field                                    | Value                                                 |
+| ---------------------------------------- | ----------------------------------------------------- |
+| Build ID and mode                        | Week 7 Lab B Development Build, Balanced              |
+| Start temperature (°C)                   | 35.0                                                  |
+| End temperature (°C) and 10-minute delta | 35.0, Δ 0.0°C                                         |
+| Overlay level at minute 0 / 5 / 10       | AP inactive / AP inactive / AP inactive               |
+| First `ThrottlingImminent`               | Not observed in 10 minutes                            |
+| `Throttling` observed                    | No event observed; AP inactive                        |
+| Frame time before: mean / 99th (ms)      | 16.64 / 16.92                                         |
+| Frame time after: mean / 99th (ms)       | 16.58 / 16.53                                         |
+| Conditions                               | Balanced mode, 10-minute soak, Huawei SEA-AL10, 60 Hz |
