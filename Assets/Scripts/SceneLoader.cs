@@ -32,7 +32,7 @@ public class SceneLoader : MonoBehaviour
             ct.ThrowIfCancellationRequested();
 
             if (progressBar != null)
-                progressBar.value = 1f;
+                progressBar.value = 0f;
 
             if (loadingCanvas != null)
                 loadingCanvas.SetActive(true);
