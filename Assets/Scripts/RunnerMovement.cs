@@ -16,6 +16,11 @@ public class RunnerMovement : MonoBehaviour
 
     private float speedTimer = 0f;
 
+    [Header("Economy Upgrade")]
+    [SerializeField] private float speedBonusPerLevel = 0.1f;
+
+    private Wallet wallet;
+
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip jumpSound;
     private bool isGameOver = false;
@@ -60,7 +65,17 @@ public class RunnerMovement : MonoBehaviour
 
         UpdateSpeed();
 
-        transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+        // Apply the wallet upgrade bonus to forward movement.
+        if (wallet == null)
+        {
+            wallet = FindFirstObjectByType<Wallet>();
+        }
+
+        int upgradeLevel = wallet != null ? wallet.Level : 0;
+
+        float actualSpeed = forwardSpeed * (1f + upgradeLevel * speedBonusPerLevel);
+
+        transform.Translate(Vector3.forward * actualSpeed * Time.deltaTime);
 
         // Smoothly move towards the selected lane.
         UpdateLaneMovement();
