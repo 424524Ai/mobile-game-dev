@@ -1,0 +1,1 @@
+11-15 22:30:28.034 18794 18831 I Unity   : [AP] provider inactive on this device

@@ -1,0 +1,2 @@
+11-15 22:31:51.395 18794 18831 I Unity   : perf_mode=Balanced high=False
+11-15 22:31:52.493 18794 18831 I Unity   : perf_mode=HighFps high=True

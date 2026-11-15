@@ -115,3 +115,7 @@ docs/.obsidian/workspace.json
 # Ignore generated release files, but keep APKs
 releases/*
 !releases/*.apk
+
+# Unity Profiler captures
+/ProfilerCaptures/
+/docs/CA2/baseline/perf-modes/*.data
