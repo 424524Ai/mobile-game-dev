@@ -37,8 +37,8 @@ public class TapSwipeInput : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Swipe Down - Slide");
-                        if (runner != null) runner.Slide();
+                        Debug.Log("Swipe Down - Roll");
+                        if (runner != null) runner.Roll();
                     }
                 }
                 else
