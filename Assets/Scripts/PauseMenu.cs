@@ -6,13 +6,30 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject settingsPanel;
     [SerializeField] GameObject panel;
     [SerializeField] LifecycleGuard guard;
+    [SerializeField] private GameObject gameplayHUD;
+    [SerializeField] private GameObject aboutPanel;
 
     void OnEnable() { LifecycleGuard.PausedChanged += Show; Show(LifecycleGuard.IsPaused); }
     void OnDisable() { LifecycleGuard.PausedChanged -= Show; }
-    void Show(bool paused) {
-        panel.SetActive(paused);
-        if(!paused)
+    // Updates the pause menu and gameplay HUD visibility.
+    void Show(bool paused)
+    {
+        bool isAboutOpen = aboutPanel != null && aboutPanel.activeSelf;
+        bool isSettingsOpen = settingsPanel != null && settingsPanel.activeSelf;
+
+        // Only show the Pause panel if no sub-menu is open.
+        panel.SetActive(paused && !isAboutOpen && !isSettingsOpen);
+
+        if (gameplayHUD != null)
+            gameplayHUD.SetActive(!paused);
+
+        if (!paused)
+        {
             settingsPanel.SetActive(false);
+
+            if (aboutPanel != null)
+                aboutPanel.SetActive(false);
+        }
     }
 
     void Update()
@@ -21,6 +38,9 @@ public class PauseMenu : MonoBehaviour
         if (kb == null || !kb.escapeKey.wasPressedThisFrame) return;
         guard.SetPaused(!LifecycleGuard.IsPaused);
     }
+
+    // Pauses the game when the HUD pause button is pressed.
+    public void OnPausePressed() => guard.SetPaused(true);
 
     public void OnResumePressed() => guard.SetPaused(false);
 

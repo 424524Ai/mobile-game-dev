@@ -16,8 +16,13 @@ public class LifecycleGuard : MonoBehaviour
     // Notification shade, permission dialog, on-screen keyboard.
     void OnApplicationFocus(bool f) { if (!f) SetPaused(true); }
 
-    public void SetPaused(bool value)  // Resume button passes false
+    // Updates the pause state only when it changes.
+    public void SetPaused(bool value)
     {
+        // Avoid triggering the pause event if the state is unchanged.
+        if (IsPaused == value)
+            return;
+
         IsPaused = value;
         Time.timeScale = value ? 0f : 1f;
         AudioListener.pause = value;
