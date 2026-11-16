@@ -1,35 +1,35 @@
 
 # Week 3 Performance Baseline
 
-| Field | Row 1 |
-|---|---|
-| Date | 12 October 2026 |
-| Commit | TBD |
-| Version Name / Code | 0.1.1 / 3 |
-| Build | Android Release (frame times), Android Dev (Profiler) |
-| Unity Version | 6000.6.0f1 |
-| Device | HUAWEI SEA-AL10 |
-| Android Version | 10 |
-| SoC / GPU | TBD |
-| Graphics API | Vulkan |
-| Refresh Rate | 60 Hz |
-| Target FPS | 60 |
-| Menu (Pause Menu): avg / p99 | 16.57 ms / 16.53 ms |
-| Steady Gameplay: avg / p99 | 16.57 ms / 16.53 ms |
-| Worst Case: avg / p99 | 16.55 ms / 16.53 ms |
-| GC Allocated in Frame | 34 B |
-| Allocating Markers | PlayerSendFrameStarted (17 B), NewInputUpdate (17 B) |
-| GC.Collect | Not observed during the capture |
-| Peak Total Reserved | 361.7 MB |
-| TOTAL PSS | 213.6 MiB |
-| Worst Case: SetPass / Batches / Triangles | 25 / N/A / ~1.8k |
-| Cold Start Median | 195 ms (Displayed) |
-| Fully Drawn Median | 729 ms |
-| First Interactive Time | Not measured |
-| APK Size | 30.66 MiB (32,152,329 bytes) |
-| Thermal Delta / Throttling (Week 7) | |
-| Load Time (Week 5) | |
-
+| Field                                     | Row 1                                                 |
+| ----------------------------------------- | ----------------------------------------------------- |
+| Date                                      | 12 October 2026                                       |
+| Commit                                    | TBD                                                   |
+| Version Name / Code                       | 0.8.0 / 7                                             |
+| Build                                     | Android Release (frame times), Android Dev (Profiler) |
+| Unity Version                             | 6000.6.0f1                                            |
+| Device                                    | HUAWEI SEA-AL10                                       |
+| Android Version                           | 10                                                    |
+| SoC / GPU                                 | HiSilicon Kirin 980 / Mali-G76 MP10                   |
+| RAM                                       | 8GB                                                   |
+| Screen Resolution                         | 2340 × 1080                                           |
+| Graphics API                              | Vulkan                                                |
+| Refresh Rate                              | 60 Hz                                                 |
+| Target FPS                                | 60                                                    |
+| Menu (Pause Menu): avg / p99              | 16.57 ms / 16.53 ms                                   |
+| Steady Gameplay: avg / p99                | 16.57 ms / 16.53 ms                                   |
+| Worst Case: avg / p99                     | 16.55 ms / 16.53 ms                                   |
+| GC Allocated in Frame                     | 34 B                                                  |
+| Allocating Markers                        | PlayerSendFrameStarted (17 B), NewInputUpdate (17 B)  |
+| GC.Collect                                | Not observed during the capture                       |
+| Peak Total Reserved                       | 361.7 MB                                              |
+| TOTAL PSS                                 | 213.6 MiB                                             |
+| Worst Case: SetPass / Batches / Triangles | 25 / N/A / ~1.8k                                      |
+| Cold Start Median                         | 195 ms (Displayed)                                    |
+| Fully Drawn Median                        | 729 ms                                                |
+| First Interactive Time                    | Not measured                                          |
+| Thermal Delta / Throttling (Week 7)       |                                                       |
+| Load Time (Week 5)                        |                                                       |
 ## Notes
 
 - The Pause Menu was used because the main menu has not been implemented yet.
@@ -83,3 +83,29 @@
 | Frame time before: mean / 99th (ms)      | 16.64 / 16.92                                         |
 | Frame time after: mean / 99th (ms)       | 16.58 / 16.53                                         |
 | Conditions                               | Balanced mode, 10-minute soak, Huawei SEA-AL10, 60 Hz |
+
+| Startup Screen to Main Menu (Video Estimate)        | ~2.5 s                                                             |
+| :-------------------------------------------------- | ------------------------------------------------------------------ |
+| PLAY Button Interaction                             | Verified on device                                                 |
+| First Interactive Time (ADB Command to Interactive) | Not measured                                                       |
+| CPU Frame Time (Sample)                             | 17.74 ms                                                           |
+| GPU Frame Time                                      | Not available (Unity Profiler / Vulkan)                            |
+| Graphics API                                        | Vulkan                                                             |
+| Profiling Build                                     | Android Development Build                                          |
+| SetPass Calls (Sample)                              | 33                                                                 |
+| Triangles (Sample)                                  | ~69.5k                                                             |
+| Vertices (Sample)                                   | ~135.2k                                                            |
+| Draw Calls                                          | 0 (Profiler reported; requires verification)                       |
+| Batches                                             | Not measured                                                       |
+| Profiling Build                                     | Android Development Build                                          |
+| GC Alloc (PlayerLoop, Sample)                       | ~1.0 KB                                                            |
+| GC Alloc (ScriptRunBehaviourUpdate, Sample)         | 0 B                                                                |
+| Main Allocation Source                              | PostLateUpdate.FinishFrameRendering (~0.9 KB)                      |
+| Profiling Build                                     | Android Development Build                                          |
+| APK Size                                            | 35.33 MiB (37044218 bytes)                                         |
+| Cold Start (Android TotalTime)                      | 279 ms                                                             |
+| Hot Start (Android TotalTime)                       | 67 ms                                                              |
+| SoC / GPU                                           | HiSilicon Kirin 980 / Mali-G76 MP10                                |
+| RAM                                                 | 8GB                                                                |
+| Version Name / Code                                 | 0.8.0 / 7                                                          |
+| Battery Health Estimate                             | Not available (device does not report a battery health percentage) |

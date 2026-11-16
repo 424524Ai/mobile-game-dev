@@ -1,0 +1,11 @@
+Forward — CA2 Links
+
+GitHub Repository:
+[Insert repository URL]
+
+GitHub Release (CA2 — v0.8.0):
+[Insert release URL]
+
+Game Version: 0.8.0
+Platform: Android
+Unity Version: 6000.6.0f1
