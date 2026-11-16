@@ -10,7 +10,7 @@ This journal reflects on my progress developing *Forward*, a mobile endless runn
 
 ## Week 5 — Building and testing the playable loop
 
-During Week 5, I initially built a track that allowed the runner to turn at corners, using a track generator and corner triggers. After trying this approach, I decided that a straight track with three lanes offered more interesting moment-to-moment choices and greater obstacle variety. I therefore removed turning from the intended gameplay and focused on lane switching instead. This was an important scope decision: keeping an early mechanic simply because I had implemented it would not necessarily make the game better.
+I initially built a track that allowed the runner to turn at corners, using a track generator and corner triggers. After trying this approach, I decided that a straight track with three lanes offered more interesting moment-to-moment choices and greater obstacle variety. I therefore removed turning from the intended gameplay and focused on lane switching instead. This was an important scope decision: keeping an early mechanic simply because I had implemented it would not necessarily make the game better.
 
 After switching to the three-lane design, I focused on building a repeatable gameplay loop. I established Boot, Menu, Game and Result scenes, and connected gameplay to the result screen. I also developed a greybox content lane with four obstacle arrangements: double obstacles, staggered obstacles, a full-width obstacle requiring a roll, and a single jump obstacle. This gave me a more meaningful basis for playtesting than a track containing only one obstacle type.
 

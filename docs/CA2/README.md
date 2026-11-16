@@ -35,11 +35,25 @@
 
 ## Testing and scope
 
-Primary development and performance testing used **HUAWEI SEA-AL10**, Android 10, Vulkan. The project targets Android 8.0 (API 26) or later; this minimum is a build setting, not a guarantee of compatibility on every device. The CA2 reflective journal covers development through Week 8 Lab A; Week 9 and peer-testing results are not presented as completed work.
-
+Primary development and performance testing used **HUAWEI SEA-AL10**, Android 10, Vulkan. The project targets Android 8.0 (API 26) or later; this minimum is a build setting, not a guarantee of compatibility on every device. 
 ## Notes
 
 - The game records local telemetry in `Application.persistentDataPath/telemetry.log`; no remote analytics service is integrated.
 - The optional coin-pack purchase is simulated and does not process real payments.
 - See `KnownIssues.md` for limitations, including the currently untriggered `level_complete` event.
 - Development used ChatGPT for technical explanations, troubleshooting and documentation support; implementation and test results are described in the accompanying journal.
+
+### AI Assistance & Asset Credits
+
+Claude Code were used to create the following game assets:
+
+- Player character
+- Track models
+- Obstacle models
+- Collectible game console model
+
+These AI-generated assets were integrated into the Unity project.
+
+### Third-Party Assets
+
+- **Skybox:** [Unity Asset Store](https://assetstore.unity.com/packages/2d/textures-materials/sky/farland-skies-cloudy-crown-pro-71105)

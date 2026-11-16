@@ -1,11 +1,12 @@
-Forward — CA2 Links
+Forward — CA2 Submission Links
 
 GitHub Repository:
-[Insert repository URL]
+https://github.com/424524Ai/mobile-game-dev.git
 
-GitHub Release (CA2 — v0.8.0):
-[Insert release URL]
+GitHub Tagged Release (v0.8.0-ca2):
+https://github.com/424524Ai/mobile-game-dev/releases/tag/v0.8.0-ca2
 
+Release Tag: v0.8.0-ca2
 Game Version: 0.8.0
 Platform: Android
 Unity Version: 6000.6.0f1
