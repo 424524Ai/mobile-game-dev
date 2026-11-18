@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Threading;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject gameplayHUD;
     [SerializeField] private GameObject aboutPanel;
 
+    private bool returningToMenu;
     void OnEnable() { LifecycleGuard.PausedChanged += Show; Show(LifecycleGuard.IsPaused); }
     void OnDisable() { LifecycleGuard.PausedChanged -= Show; }
     // Updates the pause menu and gameplay HUD visibility.
@@ -53,5 +55,29 @@ public class PauseMenu : MonoBehaviour
     {
         settingsPanel.SetActive(false); 
         panel.SetActive(true);
+    }
+
+    // Returns to the main menu after clearing the pause state.
+    public async void OnMainMenuPressed()
+    {
+        // Prevent repeated requests while the scene is loading.
+        if (returningToMenu)
+            return;
+
+        returningToMenu = true;
+
+        // Restore time, audio, and the shared pause state.
+        guard.SetPaused(false);
+
+        // Load the main menu using the existing scene loader.
+        if (SceneLoader.Instance != null)
+        {
+            await SceneLoader.Instance.Load("Menu", CancellationToken.None);
+        }
+        else
+        {
+            Debug.LogError("SceneLoader instance was not found.");
+            returningToMenu = false;
+        }
     }
 }
