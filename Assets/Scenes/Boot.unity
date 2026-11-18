@@ -925,6 +925,7 @@ GameObject:
   - component: {fileID: 1087543499}
   - component: {fileID: 1087543500}
   - component: {fileID: 1087543501}
+  - component: {fileID: 1087543502}
   m_Layer: 0
   m_Name: App
   m_TagString: Untagged
@@ -1022,6 +1023,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a21a53d391800740a6b7021d85a75ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PerformanceMode
+--- !u!114 &1087543502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087543494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60de6c5cef9dd7241b2baf41de2698fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeviceTier
 --- !u!1 &1236198426
 GameObject:
   m_ObjectHideFlags: 0
