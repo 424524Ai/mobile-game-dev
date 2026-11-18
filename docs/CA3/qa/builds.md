@@ -20,3 +20,32 @@
 - Installed and launched successfully on OnePlus 11 (PHB110), Android 16.
 - Main menu, About screen and gameplay controls tested successfully.
 - No issues observed during testing on OnePlus 11.
+
+
+---
+
+## Week 8 Lab B — QA Test Build
+
+- Version: 0.8.0
+- Version Code: 7
+- Build ID: 69678012
+- Platform: Android (ARM64)
+- Build Type: Release (Signed)
+- Device: HUAWEI SEA-AL10
+- Android Version: 10
+- Test Date: 17 November 2026
+
+### Performance Measurements
+
+| Metric | Result |
+|---|---|
+| Cold Start | 400 ms |
+| Hot Start | 73 ms |
+| Total PSS (5-minute gameplay) | 280.35 MiB |
+
+### Verification
+
+- Cold start completed successfully.
+- Hot start completed successfully.
+- Memory usage measured after five minutes of gameplay.
+- Logcat and resilience testing pending.
