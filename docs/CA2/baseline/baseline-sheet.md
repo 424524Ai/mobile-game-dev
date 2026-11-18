@@ -109,3 +109,56 @@
 | RAM                                                 | 8GB                                                                |
 | Version Name / Code                                 | 0.8.0 / 7                                                          |
 | Battery Health Estimate                             | Not available (device does not report a battery health percentage) |
+
+
+## Week 8 Lab B — QA Performance Measurements
+
+| Field                         | Value                            |
+| ----------------------------- | -------------------------------- |
+| Date                          | 17 November 2026                 |
+| Device                        | HUAWEI SEA-AL10                  |
+| Android Version               | 10                               |
+| Version Name / Code           | 0.8.0 / 7                        |
+| Build ID                      | 69678012                         |
+| Build                         | Android Release (Signed)         |
+| Cold Start (TotalTime)        | 400 ms                           |
+| Warm / Hot Start (TotalTime)  | 73 ms                            |
+| TOTAL PSS (5-minute gameplay) | 280.35 MiB (287,082 KiB)         |
+| Measurement Tools             | ADB am start -W, dumpsys meminfo |
+
+### Notes
+
+- Cold start was measured after force-stopping the application.
+- Hot start was measured after returning from the background.
+- PSS was captured after approximately five minutes of gameplay.
+- Results are single measurements, not medians or peak values.
+- First interactive time was not measured.
+
+### Week 8 Lab B – Additional QA Measurements
+
+|Field|Value|
+|---|---|
+|Date|17 November 2026|
+|Device|HUAWEI SEA-AL10|
+|Android Version|10|
+|Build|Forward-v0.8.0-qa-orientation-fix.apk|
+|Cold Start (TotalTime)|227 ms|
+|Background Relaunch (TotalTime)|64 ms|
+|Background Relaunch State|HOT|
+|TOTAL PSS|198,215 KiB (193.57 MiB)|
+|TOTAL Swap PSS|187 KiB|
+|Measurement Tools|ADB `am start -W`, `dumpsys meminfo`|
+
+**Notes:**
+
+- The cold start was measured after force-stopping the application.
+    
+- The HOT launch was measured after returning from the background.
+    
+- PSS was captured using Android Debug Bridge.
+    
+- These are individual measurements, not medians.
+    
+- The measurements were taken after rebuilding the application with portrait orientation locked.
+    
+- The exact time until gameplay became interactive was not measured.
